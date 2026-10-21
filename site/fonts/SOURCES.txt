@@ -1,0 +1,3 @@
+Fraunces and Inter variable fonts from the Google Fonts repository, with SIL Open Font License files included.
+https://github.com/google/fonts/tree/main/ofl/fraunces
+https://github.com/google/fonts/tree/main/ofl/inter

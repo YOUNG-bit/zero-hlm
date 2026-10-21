@@ -1,0 +1,62 @@
+{
+  "mime": "video/mp4",
+  "size": 84786058,
+  "sha256": "97d0ec1e8b67032b4c7715aa4f45a67f4d4feff9c036661b9d55100fe3ee3475",
+  "chunks": [
+    {
+      "url": "part-000.bin",
+      "size": 8388608,
+      "sha256": "276ae840976d59f46a86eca765c87bf97f954e68847f707325cff0ccfbd4e7ef"
+    },
+    {
+      "url": "part-001.bin",
+      "size": 8388608,
+      "sha256": "6f79f371806e6e354dd1acd412eb49c590dce31a86d2ec12327661226db5a8f9"
+    },
+    {
+      "url": "part-002.bin",
+      "size": 8388608,
+      "sha256": "1f54390ca86dee9627a614386de5bdf685b694473b38ae25eab17835969192a4"
+    },
+    {
+      "url": "part-003.bin",
+      "size": 8388608,
+      "sha256": "cc11c277e1625c9a4c13626f04a5b4df329aa470cd1a7a68cd45c4a47d7e1354"
+    },
+    {
+      "url": "part-004.bin",
+      "size": 8388608,
+      "sha256": "d2168d1d501dff2489d7b96be885dda2a8706d168b22e26dedc500afec9951a2"
+    },
+    {
+      "url": "part-005.bin",
+      "size": 8388608,
+      "sha256": "d51510ae8bc0255e6e63fac76e2373e007b2684f1056de8fd679026dabbfbd0b"
+    },
+    {
+      "url": "part-006.bin",
+      "size": 8388608,
+      "sha256": "0a5cb5ea4dba58d0ccfb3d667b6ccfacacddcfe3cbecd562e5685b930fd770ba"
+    },
+    {
+      "url": "part-007.bin",
+      "size": 8388608,
+      "sha256": "385f857dcd0c61553642a71b5d1a91b846ebbb4a96d656ea9c7ed11f723d48c5"
+    },
+    {
+      "url": "part-008.bin",
+      "size": 8388608,
+      "sha256": "22978bc197dc2aa2ae54e82773dafb40201d07aa4704bbd291fe0ed48bd9bae0"
+    },
+    {
+      "url": "part-009.bin",
+      "size": 8388608,
+      "sha256": "5829526026c712b2bf3464cc7f0ea9c200217a35e0fb200946bf5c062b292f49"
+    },
+    {
+      "url": "part-010.bin",
+      "size": 899978,
+      "sha256": "78d22d9770bcba8af627013d0d471f42db9942e9d0cc3ef1ced6f7b720829850"
+    }
+  ]
+}

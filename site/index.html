@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      history.scrollRestoration = 'manual';
+      if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+      window.addEventListener('pageshow', () => {
+        window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+      });
+    </script>
+    <title>Zero-HLM: Generalizable Humanoid Loco-Manipulation without Real Robot Data</title>
+    <meta
+      name="description"
+      content="Zero-HLM learns generalizable humanoid loco-manipulation in simulation and transfers directly to the real world, without real robot data."
+    />
+    <link rel="icon" href="./logo-paper-blue.png" type="image/png" />
+    <link rel="stylesheet" href="./fonts/fonts.css" />
+    <link rel="stylesheet" href="./styles.css?v=credits-20261021" />
+    <link rel="stylesheet" href="./research.css?v=benchmark-grid-v5" />
+    <link rel="stylesheet" href="./gap-study.css?v=loading-v6" />
+      <link rel="stylesheet" href="./demo-player.css?v=youtube-20261020" />
+  </head>
+  <body id="top">
+    <header class="site-nav">
+      <div class="nav-inner">
+        <a class="nav-brand" href="./" aria-label="Zero-HLM home"><img src="./logo-paper-blue.png" alt="" width="30" height="30">Zero-HLM</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-links" aria-label="Open navigation"><span></span><span></span></button>
+        <nav id="site-links" class="nav-links" aria-label="Main navigation">
+          <a href="#highlight-stage">Demo</a><a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#data">Data</a><a href="#deployment">Real-world</a><a href="#benchmark">Benchmark</a><a href="#faq">Key Insights</a><a href="#citation">Citation</a><a href="./" class="nav-paper">Paper <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+    <main class="page-shell">
+      <section class="hero" aria-labelledby="project-title">
+        <div class="masthead">
+          <div class="hero-motif" aria-hidden="true">
+            <svg class="g1-motif" viewBox="0 0 700 430" role="img">
+              <defs>
+                <linearGradient id="particle-grad" x1="40" y1="80" x2="520" y2="320" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5f6f6d" stop-opacity="0.34" /><stop offset="0.48" stop-color="#6f928d" stop-opacity="0.56" /><stop offset="1" stop-color="#8ab7ad" stop-opacity="0.72" /></linearGradient>
+                <linearGradient id="robot-panel" x1="500" y1="70" x2="650" y2="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f4f2ec" /><stop offset="1" stop-color="#cdd3cf" /></linearGradient>
+                <linearGradient id="robot-jade" x1="500" y1="95" x2="650" y2="310" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b8d8d0" /><stop offset="1" stop-color="#6faaa0" /></linearGradient>
+                <mask id="g1-form-mask" maskUnits="userSpaceOnUse" x="470" y="60" width="220" height="343">
+                  <rect x="470" y="60" width="220" height="343" fill="white" />
+                  <g class="g1-edge-cuts" fill="black">
+                    <rect x="575" y="84" width="8" height="7" rx="1.5" />
+                    <rect x="566" y="95" width="6" height="6" rx="1.4" />
+                    <rect x="556" y="121" width="8" height="8" rx="1.5" />
+                    <rect x="548" y="134" width="7" height="7" rx="1.5" />
+                    <rect x="541" y="148" width="10" height="9" rx="1.7" />
+                    <rect x="534" y="161" width="8" height="8" rx="1.5" />
+                    <rect x="529" y="176" width="10" height="10" rx="1.8" />
+                    <rect x="523" y="194" width="8" height="8" rx="1.5" />
+                    <rect x="516" y="207" width="9" height="9" rx="1.6" />
+                    <rect x="518" y="224" width="7" height="8" rx="1.5" />
+                    <rect x="513" y="241" width="8" height="8" rx="1.5" />
+                    <rect x="519" y="257" width="7" height="7" rx="1.4" />
+                    <rect x="552" y="273" width="9" height="9" rx="1.6" />
+                    <rect x="545" y="288" width="7" height="8" rx="1.5" />
+                    <rect x="534" y="303" width="9" height="9" rx="1.6" />
+                    <rect x="525" y="318" width="7" height="7" rx="1.4" />
+                    <rect x="517" y="333" width="10" height="9" rx="1.7" />
+                    <rect x="511" y="349" width="8" height="8" rx="1.5" />
+                    <rect x="522" y="362" width="7" height="7" rx="1.4" />
+                  </g>
+                </mask>
+              </defs>
+              <g class="sim-grid"><path d="M74 276 L174 218 L276 276 L174 334 Z M174 218 L174 106 M276 276 L382 216 M174 334 L274 392 M262 168 L382 216 L498 154" /><path d="M154 116 L262 168 L166 224 M382 216 L386 310 L274 392" /></g>
+              <g class="particle-field">
+                <rect class="motif-pixel" x="132.6" y="146.7" width="4.5" height="4.5" rx="1.2" opacity="0.40"/>
+                <rect class="motif-pixel" x="144.8" y="125.3" width="3.9" height="3.9" rx="1.2" opacity="0.39"/>
+                <rect class="motif-pixel" x="58.4" y="132.9" width="3.6" height="3.6" rx="1.2" opacity="0.58"/>
+                <rect class="motif-pixel" x="103.2" y="256.3" width="5.6" height="5.6" rx="1.2" opacity="0.52"/>
+                <rect class="motif-pixel" x="323.1" y="122.7" width="5.3" height="5.3" rx="1.2" opacity="0.45"/>
+                <circle class="motif-dot" cx="72.4" cy="183.0" r="2.6" opacity="0.42"/>
+                <rect class="motif-pixel" x="224.6" y="197.7" width="4.1" height="4.1" rx="1.2" opacity="0.40"/>
+                <circle class="motif-dot" cx="98.1" cy="268.5" r="1.8" opacity="0.46"/>
+                <rect class="motif-pixel" x="170.3" y="180.9" width="5.0" height="5.0" rx="1.2" opacity="0.55"/>
+                <rect class="motif-pixel" x="205.7" y="232.8" width="5.3" height="5.3" rx="1.2" opacity="0.56"/>
+                <rect class="motif-pixel" x="324.2" y="139.2" width="3.6" height="3.6" rx="1.2" opacity="0.56"/>
+                <circle class="motif-dot" cx="180.8" cy="121.0" r="2.3" opacity="0.56"/>
+                <circle class="motif-dot" cx="293.6" cy="184.2" r="2.3" opacity="0.52"/>
+                <circle class="motif-dot" cx="171.2" cy="305.2" r="2.8" opacity="0.49"/>
+                <circle class="motif-dot" cx="55.7" cy="273.3" r="2.2" opacity="0.62"/>
+                <rect class="motif-pixel" x="121.1" y="200.7" width="4.5" height="4.5" rx="1.2" opacity="0.39"/>
+                <rect class="motif-pixel" x="87.1" y="138.9" width="2.2" height="2.2" rx="1.2" opacity="0.56"/>
+                <rect class="motif-pixel" x="110.3" y="201.9" width="5.3" height="5.3" rx="1.2" opacity="0.40"/>
+                <rect class="motif-pixel" x="198.4" y="315.2" width="5.1" height="5.1" rx="1.2" opacity="0.59"/>
+                <rect class="motif-pixel" x="159.3" y="194.5" width="5.4" height="5.4" rx="1.2" opacity="0.61"/>
+                <circle class="motif-dot" cx="89.5" cy="165.4" r="1.4" opacity="0.50"/>
+                <circle class="motif-dot" cx="114.7" cy="112.9" r="1.8" opacity="0.47"/>
+                <circle class="motif-dot" cx="316.3" cy="270.8" r="2.0" opacity="0.53"/>
+                <circle class="motif-dot" cx="53.8" cy="318.9" r="2.5" opacity="0.59"/>
+                <rect class="motif-pixel" x="152.6" y="203.8" width="2.4" height="2.4" rx="1.2" opacity="0.53"/>
+                <rect class="motif-pixel" x="57.7" y="160.0" width="2.6" height="2.6" rx="1.2" opacity="0.46"/>
+                <rect class="motif-pixel" x="38.1" y="146.8" width="2.4" height="2.4" rx="1.2" opacity="0.47"/>
+                <rect class="motif-pixel" x="293.3" y="253.2" width="2.6" height="2.6" rx="1.2" opacity="0.44"/>
+                <rect class="motif-pixel" x="144.3" y="140.3" width="5.2" height="5.2" rx="1.2" opacity="0.62"/>
+                <rect class="motif-pixel" x="179.3" y="131.8" width="2.4" height="2.4" rx="1.2" opacity="0.46"/>
+                <rect class="motif-pixel" x="280.0" y="149.1" width="2.1" height="2.1" rx="1.2" opacity="0.61"/>
+                <circle class="motif-dot" cx="80.8" cy="236.9" r="1.1" opacity="0.51"/>
+                <rect class="motif-pixel" x="290.1" y="272.1" width="3.0" height="3.0" rx="1.2" opacity="0.47"/>
+                <rect class="motif-pixel" x="263.4" y="234.5" width="5.0" height="5.0" rx="1.2" opacity="0.46"/>
+                <circle class="motif-dot" cx="275.0" cy="338.5" r="2.6" opacity="0.57"/>
+                <rect class="motif-pixel" x="254.0" y="164.2" width="4.0" height="4.0" rx="1.2" opacity="0.47"/>
+                <circle class="motif-dot" cx="46.2" cy="176.3" r="1.5" opacity="0.55"/>
+                <rect class="motif-pixel" x="168.6" y="327.5" width="5.8" height="5.8" rx="1.2" opacity="0.61"/>
+                <circle class="motif-dot" cx="102.4" cy="164.2" r="1.4" opacity="0.43"/>
+                <circle class="motif-dot" cx="300.9" cy="305.3" r="1.9" opacity="0.54"/>
+                <circle class="motif-dot" cx="62.8" cy="263.9" r="2.7" opacity="0.57"/>
+                <circle class="motif-dot" cx="177.6" cy="153.1" r="2.5" opacity="0.46"/>
+                <circle class="motif-dot" cx="321.7" cy="203.0" r="1.8" opacity="0.61"/>
+                <circle class="motif-dot" cx="87.6" cy="141.2" r="1.3" opacity="0.60"/>
+                <rect class="motif-pixel" x="80.7" y="302.1" width="5.7" height="5.7" rx="1.2" opacity="0.54"/>
+                <circle class="motif-dot" cx="198.2" cy="142.1" r="1.0" opacity="0.61"/>
+                <circle class="motif-dot" cx="419.0" cy="310.7" r="2.2" opacity="0.71"/>
+                <circle class="motif-dot" cx="347.7" cy="153.9" r="1.9" opacity="0.54"/>
+                <rect class="motif-pixel" x="358.6" y="192.4" width="3.0" height="3.0" rx="1.2" opacity="0.72"/>
+                <circle class="motif-dot" cx="403.5" cy="230.2" r="3.4" opacity="0.59"/>
+                <rect class="motif-pixel" x="413.4" y="218.3" width="4.9" height="4.9" rx="1.2" opacity="0.48"/>
+                <rect class="motif-pixel" x="341.4" y="96.9" width="6.2" height="6.2" rx="1.2" opacity="0.52"/>
+                <circle class="motif-dot" cx="463.9" cy="224.0" r="2.0" opacity="0.61"/>
+                <rect class="motif-pixel" x="477.2" y="120.4" width="5.1" height="5.1" rx="1.2" opacity="0.54"/>
+                <circle class="motif-dot" cx="474.5" cy="212.8" r="2.5" opacity="0.68"/>
+                <circle class="motif-dot" cx="400.2" cy="236.9" r="2.4" opacity="0.61"/>
+                <circle class="motif-dot" cx="402.2" cy="218.7" r="2.3" opacity="0.72"/>
+                <circle class="motif-dot" cx="498.1" cy="312.7" r="1.8" opacity="0.63"/>
+                <rect class="motif-pixel" x="489.8" y="127.5" width="3.0" height="3.0" rx="1.2" opacity="0.59"/>
+                <circle class="motif-dot" cx="354.4" cy="112.8" r="2.8" opacity="0.68"/>
+                <circle class="motif-dot" cx="334.9" cy="260.7" r="2.8" opacity="0.52"/>
+                <rect class="motif-pixel" x="518.7" y="146.5" width="7.0" height="7.0" rx="1.2" opacity="0.58"/>
+                <rect class="motif-pixel" x="523.7" y="287.5" width="3.2" height="3.2" rx="1.2" opacity="0.59"/>
+                <rect class="motif-pixel" x="376.6" y="141.0" width="3.9" height="3.9" rx="1.2" opacity="0.67"/>
+                <circle class="motif-dot" cx="425.2" cy="197.3" r="1.2" opacity="0.57"/>
+                <circle class="motif-dot" cx="415.8" cy="110.8" r="3.6" opacity="0.68"/>
+                <rect class="motif-pixel" x="323.7" y="157.1" width="2.6" height="2.6" rx="1.2" opacity="0.68"/>
+                <rect class="motif-pixel" x="329.3" y="193.1" width="6.8" height="6.8" rx="1.2" opacity="0.69"/>
+                <rect class="motif-pixel" x="333.8" y="307.4" width="5.1" height="5.1" rx="1.2" opacity="0.66"/>
+                <circle class="motif-dot" cx="313.0" cy="254.3" r="2.2" opacity="0.50"/>
+                <rect class="motif-pixel" x="443.4" y="280.4" width="2.8" height="2.8" rx="1.2" opacity="0.70"/>
+                <circle class="motif-dot" cx="495.0" cy="200.4" r="2.0" opacity="0.62"/>
+                <rect class="motif-pixel" x="360.5" y="125.7" width="4.9" height="4.9" rx="1.2" opacity="0.54"/>
+                <rect class="motif-pixel" x="336.5" y="107.6" width="3.4" height="3.4" rx="1.2" opacity="0.56"/>
+                <rect class="motif-pixel" x="471.6" y="162.7" width="4.8" height="4.8" rx="1.2" opacity="0.53"/>
+                <circle class="motif-dot" cx="304.1" cy="153.6" r="1.2" opacity="0.67"/>
+                <circle class="motif-dot" cx="342.8" cy="205.2" r="3.4" opacity="0.51"/>
+                <rect class="motif-pixel" x="397.7" y="209.9" width="6.4" height="6.4" rx="1.2" opacity="0.58"/>
+                <circle class="motif-dot" cx="455.4" cy="322.0" r="2.0" opacity="0.70"/>
+                <rect class="motif-pixel" x="443.7" y="189.1" width="4.1" height="4.1" rx="1.2" opacity="0.49"/>
+                <rect class="motif-pixel" x="316.0" y="266.4" width="3.6" height="3.6" rx="1.2" opacity="0.52"/>
+                <rect class="motif-pixel" x="490.1" y="296.2" width="5.6" height="5.6" rx="1.2" opacity="0.55"/>
+                <rect class="motif-pixel" x="366.2" y="201.7" width="3.2" height="3.2" rx="1.2" opacity="0.60"/>
+                <circle class="motif-dot" cx="517.4" cy="319.7" r="2.5" opacity="0.54"/>
+                <rect class="motif-pixel" x="370.0" y="178.0" width="2.4" height="2.4" rx="1.2" opacity="0.58"/>
+                <rect class="motif-pixel" x="413.6" y="142.2" width="4.8" height="4.8" rx="1.2" opacity="0.48"/>
+                <rect class="motif-pixel" x="320.3" y="187.9" width="2.6" height="2.6" rx="1.2" opacity="0.49"/>
+                <circle class="motif-dot" cx="352.6" cy="230.7" r="2.5" opacity="0.68"/>
+              </g>
+              <g class="robot-edge-shards">
+                <rect class="body-pixel" x="556" y="88" width="8" height="7" rx="1.5" />
+                <rect class="jade-pixel" x="565" y="101" width="5" height="5" rx="1.2" />
+                <rect class="body-pixel" x="540" y="130" width="9" height="8" rx="1.6" />
+                <rect x="526" y="153" width="7" height="7" rx="1.4" />
+                <rect class="body-pixel" x="516" y="174" width="9" height="8" rx="1.5" />
+                <rect class="jade-pixel" x="505" y="199" width="6" height="6" rx="1.3" />
+                <rect class="body-pixel" x="501" y="224" width="8" height="8" rx="1.5" />
+                <rect x="506" y="249" width="6" height="6" rx="1.3" />
+                <rect class="body-pixel" x="538" y="279" width="8" height="8" rx="1.5" />
+                <rect class="jade-pixel" x="527" y="304" width="6" height="6" rx="1.3" />
+                <rect class="body-pixel" x="508" y="329" width="9" height="8" rx="1.5" />
+                <rect class="jade-pixel" x="499" y="351" width="6" height="6" rx="1.3" />
+              </g>
+              <image class="g1-robot-image" href="hero-g1-contour.png" x="470" y="60" width="220" height="343" preserveAspectRatio="xMidYMid meet" mask="url(#g1-form-mask)" />
+              <g class="robot-form-particles">
+                <rect class="body-pixel" x="560" y="90" width="7" height="7" rx="1.6" />
+                <rect class="jade-pixel" x="573" y="96" width="5" height="5" rx="1.3" />
+                <circle cx="548" cy="126" r="2.6" />
+                <rect class="body-pixel" x="530" y="151" width="8" height="8" rx="1.7" />
+                <rect class="jade-pixel" x="546" y="163" width="5" height="5" rx="1.2" />
+                <circle cx="522" cy="183" r="2.8" />
+                <rect class="body-pixel" x="509" y="203" width="7" height="7" rx="1.5" />
+                <rect class="jade-pixel" x="524" y="224" width="5" height="5" rx="1.2" />
+                <circle cx="510" cy="250" r="2.5" />
+                <rect class="body-pixel" x="538" y="277" width="8" height="8" rx="1.6" />
+                <rect class="jade-pixel" x="553" y="292" width="5" height="5" rx="1.2" />
+                <rect class="body-pixel" x="520" y="312" width="7" height="7" rx="1.5" />
+                <circle cx="505" cy="341" r="2.7" />
+                <rect class="jade-pixel" x="516" y="355" width="5" height="5" rx="1.2" />
+                <rect x="494" y="363" width="4" height="4" rx="1.1" />
+              </g>
+            </svg>
+          </div>
+          <h1 id="project-title">Zero-HLM</h1>
+          <p class="subtitle">Generalizable Humanoid <span class="nowrap">Loco-Manipulation</span><br> <span class="nowrap">without Real Robot Data</span></p>
+
+          <p class="authors" aria-label="Authors">
+            <span>Dianyi Yang<sup>1,2,*</sup></span>
+            <span>Mengya Liu<sup>2,*</sup></span>
+            <span>Zhumei Wang<sup>1,2</sup></span>
+            <span>Yu Liu<sup>2,3</sup></span>
+            <span>Xiaochen Zhang<sup>1,2</sup></span>
+            <span>Yixuan Li<sup>1</sup></span>
+            <span>Le Ma<sup>2</sup></span>
+            <span>Yuhang Yang<sup>2,3</sup></span>
+            <span>Weiqi Huang<sup>1,2</sup></span>
+            <span>Wei Liang<sup>1,†</sup></span>
+            <span>Baoxiong Jia<sup>2,†</sup></span>
+            <span>Siyuan Huang<sup>2,4,†</sup></span>
+          </p>
+
+          <div class="affiliations" aria-label="Affiliations">
+            <span><sup>1</sup> Beijing Institute of Technology</span>
+            <span><sup>2</sup> State Key Laboratory of General Artificial Intelligence, BIGAI</span>
+            <span><sup>3</sup> Tsinghua University</span>
+            <span><sup>4</sup> Delta Intelligence</span>
+          </div>
+          <div class="author-notes" aria-label="Author contributions">
+            <span><sup>*</sup> Equal contribution</span>
+            <span><sup>†</sup> Corresponding authors</span>
+          </div>
+          <div class="resource-actions" aria-label="Research resources"><a class="resource-link primary" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h4M10 12h5M10 16h5"/></svg>Paper</a><a class="resource-link" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h14M5 12h14M5 18h14"/></svg>arXiv</a><button class="resource-link" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg><span>Code <small>(coming soon)</small></span></button><a class="resource-link youtube" href="https://youtu.be/jkrRp13nhVU" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M21.58 7.19a2.97 2.97 0 0 0-2.09-2.1C17.65 4.6 12 4.6 12 4.6s-5.65 0-7.49.49a2.97 2.97 0 0 0-2.09 2.1A31 31 0 0 0 1.93 12c0 1.62.16 3.23.49 4.81a2.97 2.97 0 0 0 2.09 2.1c1.84.49 7.49.49 7.49.49s5.65 0 7.49-.49a2.97 2.97 0 0 0 2.09-2.1c.33-1.58.49-3.19.49-4.81s-.16-3.23-.49-4.81ZM10 15.2V8.8l5.54 3.2Z" fill-rule="evenodd"/></svg>YouTube</a><a class="resource-link" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></svg>Dataset</a><a class="resource-link" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 3 12 18h4L8 3zm16 0L4 21"/></svg>Twitter</a></div>
+        </div>
+
+        <div id="highlight-stage" class="project-demo" data-youtube-id="jkrRp13nhVU" aria-label="Zero-HLM project demo">
+          <div class="project-demo-embed"></div>
+          <img class="project-demo-poster" src="./media/zero-hlm-demo-6a5c78bd0397.jpg" width="1920" height="1080" alt="Zero-HLM: learn in simulation and deploy in the real world" />
+          <button class="project-demo-start" type="button" aria-label="Play the complete Zero-HLM demo">
+            <span class="project-demo-play" aria-hidden="true">▶</span>
+            <span>Watch demo</span>
+          </button>
+          <div class="project-demo-loading" role="status" aria-live="polite" hidden>
+            <span aria-hidden="true"></span><span>Loading video…</span>
+          </div>
+          <p class="project-demo-error" role="alert" hidden>YouTube could not connect. Please try again or <a class="project-demo-youtube-link" href="https://youtu.be/jkrRp13nhVU" target="_blank" rel="noopener">watch on YouTube</a>.</p>
+        </div>
+      </section>
+
+      <section id="abstract" class="abstract-section" aria-labelledby="abstract-title">
+        <div class="section-heading">
+          <h2 id="abstract-title">01 — Abstract</h2>
+        </div>
+        <div class="abstract-grid">
+          <div class="abstract-copy">
+            <p class="abstract-lead">Learning generalizable humanoid loco-manipulation remains bottlenecked by costly real-world demonstrations. Simulation offers a scalable alternative, but extending it to humanoids requires solving two coupled challenges: constructing scene-scale environments that are both visually faithful and physics-ready, and generating successful demonstrations under unified whole-body control.</p>
+            <p>We present <strong>Zero-HLM</strong>, a real-to-sim-to-real framework that transforms smartphone captures and simulated source demonstrations into scalable training data for humanoid loco-manipulation. We couple Gaussian visual reconstruction with agentic physical scene construction to build interaction-ready digital twins with aligned visual and physical geometry. Within the environment, our motion–environment co-adaptation strategy synthesizes unified whole-body references and uses rollout feedback to restore interaction geometry when tracking deviations disrupt execution.</p>
+            <p>We successfully generate <strong class="metric">4,800</strong> physically validated demonstrations in simulation using Zero-HLM, averaging a <strong class="metric">1.8×</strong> speedup over real-world data collection. Policies trained solely on these data transfer <strong>zero-shot</strong> to a Unitree G1 across three long-horizon tasks. With GR00T N1.7, <strong>simulation-only</strong> training achieves <strong class="metric">66.7%</strong> mean full-task success with an absolute <strong class="metric">20%</strong> gain over real-data training under matched configurations. Across five generalization settings, pooled real-world success increases from <strong class="metric">23% to 69%</strong> without additional real demonstrations. To support systematic evaluation, we establish a benchmark with nine skill stages and shared protocols for comparing models and studying data scaling.</p>
+          </div>
+          <div class="abstract-visuals">
+            <div class="abstract-highlight" aria-label="Zero-HLM: from simulation to real-world deployment">
+              <video id="abstract-highlight-video" controls muted playsinline loop preload="none" poster="./media/abstract-highlight.jpg?v=12" data-src="./media/abstract-highlight.mp4?v=12" aria-label="40-second highlight: two simulation rows above three real deployments, followed by learning in simulation and real-world deployment"></video>
+              <p class="abstract-highlight-error" hidden>Video could not load. Please refresh to retry.</p>
+            </div>
+            <div class="chart-pair" aria-label="GR00T N1.7 real-world success charts">
+              <article class="mini-chart" aria-labelledby="base-chart-title">
+                <header>
+                  <h3 id="base-chart-title">Base Configuration</h3>
+                  <p>GR00T N1.7 · Success (%)</p>
+                </header>
+                <div class="chart-legend" aria-hidden="true"><span class="legend-real"></span>Real-data <span class="legend-sim"></span>Sim-data</div>
+                <div class="chart-plot">
+                  <div class="chart-grid" aria-hidden="true"><span data-tick="100">100</span><span data-tick="50">50</span><span data-tick="0">0</span></div>
+                  <div class="bars" role="img" aria-label="Base configuration success: Task A real-data 40 percent and sim-data 60 percent; Task B real-data 55 percent and sim-data 75 percent; Task C real-data 45 percent and sim-data 65 percent.">
+                  <div class="bar-group"><div class="bar-slot" style="--value:40"><span class="bar-value">40</span><i class="bar real"></i></div><div class="bar-slot" style="--value:60"><span class="bar-value">60</span><i class="bar sim"></i></div><span class="bar-label">Task A</span></div>
+                  <div class="bar-group"><div class="bar-slot" style="--value:55"><span class="bar-value">55</span><i class="bar real"></i></div><div class="bar-slot" style="--value:75"><span class="bar-value">75</span><i class="bar sim"></i></div><span class="bar-label">Task B</span></div>
+                  <div class="bar-group"><div class="bar-slot" style="--value:45"><span class="bar-value">45</span><i class="bar real"></i></div><div class="bar-slot" style="--value:65"><span class="bar-value">65</span><i class="bar sim"></i></div><span class="bar-label">Task C</span></div>
+                  </div>
+                </div>
+              </article>
+              <article class="mini-chart" aria-labelledby="gen-chart-title">
+                <header>
+                  <h3 id="gen-chart-title">Generalized Configurations</h3>
+                  <p>GR00T N1.7 · Success (%)</p>
+                </header>
+                <div class="chart-legend" aria-hidden="true"><span class="legend-real"></span>Real-data <span class="legend-sim"></span>Sim-data</div>
+                <div class="chart-plot">
+                  <div class="chart-grid" aria-hidden="true"><span data-tick="100">100</span><span data-tick="50">50</span><span data-tick="0">0</span></div>
+                  <div class="bars four" role="img" aria-label="Generalized configuration success: Task A real-data 22.9 percent and sim-data 71.4 percent; Task B real-data 10 percent and sim-data 70 percent; Tabletop real-data 26.0 percent and sim-data 64.0 percent; Goal Change real-data 20 percent and sim-data 100 percent.">
+                  <div class="bar-group"><div class="bar-slot" style="--value:22.9"><span class="bar-value">22.9</span><i class="bar real"></i></div><div class="bar-slot" style="--value:71.4"><span class="bar-value">71.4</span><i class="bar sim"></i></div><span class="bar-label">Task A</span></div>
+                  <div class="bar-group"><div class="bar-slot" style="--value:10"><span class="bar-value">10</span><i class="bar real"></i></div><div class="bar-slot" style="--value:70"><span class="bar-value">70</span><i class="bar sim"></i></div><span class="bar-label">Task B</span></div>
+                  <div class="bar-group"><div class="bar-slot" style="--value:26"><span class="bar-value">26.0</span><i class="bar real"></i></div><div class="bar-slot" style="--value:64"><span class="bar-value">64.0</span><i class="bar sim"></i></div><span class="bar-label">Tabletop</span></div>
+                  <div class="bar-group"><div class="bar-slot" style="--value:20"><span class="bar-value">20</span><i class="bar real"></i></div><div class="bar-slot" style="--value:100"><span class="bar-value">100</span><i class="bar sim"></i></div><span class="bar-label">Goal<br>Change</span></div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="method" class="method-section content-section" aria-labelledby="method-title">
+        <div class="section-heading">
+          <h2 id="method-title">02 — Method</h2>
+        </div>
+        <div class="method-grid" data-active-step="1">
+          <div class="method-tabs" role="tablist" aria-label="Zero-HLM method steps">
+            <button class="method-tab is-active" id="method-tab-1" type="button" role="tab" aria-selected="true" aria-controls="method-panel" data-step="1" data-src="./media/method-step-1.mp4" data-poster="./media/method-step-1.jpg" data-duration="20">
+              <span class="method-index">01</span>
+              <span class="method-tab-copy"><strong>Agentic Real-to-Sim</strong><em>Build visually aligned, physics-ready digital twins from smartphone captures.</em></span>
+            </button>
+            <button class="method-tab" id="method-tab-2" type="button" role="tab" aria-selected="false" aria-controls="method-panel" data-step="2" data-src="./media/method-step-2.mp4" data-poster="./media/method-step-2.jpg" data-duration="13" tabindex="-1">
+              <span class="method-index">02</span>
+              <span class="method-tab-copy"><strong>Source Demonstrations</strong><em>Collect source demonstrations through simulation teleoperation.</em></span>
+            </button>
+            <button class="method-tab" id="method-tab-3" type="button" role="tab" aria-selected="false" aria-controls="method-panel" data-step="3" data-src="./media/generation/method-step-3-generation.mp4?v=sonic-policy-v8" data-poster="./media/generation/method-step-3-generation.jpg?v=sonic-policy-v8" data-duration="67" tabindex="-1">
+              <span class="method-index">03</span>
+              <span class="method-tab-copy"><strong>Scalable Data Generation</strong><em>Source-anchored motion, physics validation, and scene correction.</em></span>
+            </button>
+            <button class="method-tab" id="method-tab-4" type="button" role="tab" aria-selected="false" aria-controls="method-panel" data-step="4" data-src="./media/real-world-wall.mp4?v=wall36-v3" data-poster="./media/real-world-wall.jpg?v=wall36-v3" data-duration="30" tabindex="-1">
+              <span class="method-index">04</span>
+              <span class="method-tab-copy"><strong>Direct Sim-to-Real Deployment</strong><em>Deploy simulation-trained policies directly on the real humanoid.</em></span>
+            </button>
+          </div>
+          <div class="method-stage" aria-live="polite">
+            <div class="method-video-card" id="method-panel" role="tabpanel" aria-labelledby="method-tab-1">
+              <video id="method-video" class="method-video" muted playsinline preload="none" poster="./media/method-step-1.jpg" data-src="./media/method-step-1.mp4" data-duration="20" aria-label="Zero-HLM method step 01: Agentic Real-to-Sim"></video>
+              <p id="method-error" class="media-error" hidden>Method video could not be loaded. Please try another step or replay.</p>
+            </div>
+            <div class="method-controls" aria-label="Method video controls">
+              <button id="method-toggle" type="button">Play</button>
+              <button id="method-replay" type="button">Replay</button>
+              <button id="method-expand" type="button" aria-label="Expand method video">Expand</button>
+              <div class="method-seek-row">
+                <span id="method-current" class="timecode">0:00</span>
+                <input id="method-seek" class="method-seek media-seek" type="range" min="0" max="1000" value="0" disabled aria-label="Seek method video" />
+                <span id="method-duration" class="timecode">0:00</span>
+              </div>
+            </div>
+            <p class="method-generation-caption">Sample source → Synthesize reference → Validate with SONIC → Correct scene geometry.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="data" class="data-section content-section" aria-labelledby="data-title">
+        <div class="section-heading">
+          <h2 id="data-title">03 — Data</h2>
+        </div>
+        <div class="data-layout" data-active-task="task-a">
+          <div class="data-intro">
+            <p>Third-person simulation rollouts paired with their rendered egocentric observations.</p>
+          </div>
+          <div class="data-tabs" role="tablist" aria-label="Simulation data tasks">
+            <button class="data-tab is-active" id="data-tab-task-a" type="button" role="tab" aria-selected="true" aria-controls="data-panel" data-task="task-a">
+              <span>Task 1</span><strong>Mobile Pick-and-Place</strong>
+            </button>
+            <button class="data-tab" id="data-tab-task-b" type="button" role="tab" aria-selected="false" aria-controls="data-panel" data-task="task-b" tabindex="-1">
+              <span>Task 2</span><strong>Low-Reach Hat Placement</strong>
+            </button>
+            <button class="data-tab" id="data-tab-task-c" type="button" role="tab" aria-selected="false" aria-controls="data-panel" data-task="task-c" tabindex="-1">
+              <span>Task 3</span><strong>Leg-Assisted Basket Transport</strong>
+            </button>
+          </div>
+          <div id="data-panel" class="data-panel" role="tabpanel" aria-labelledby="data-tab-task-a">
+            <div class="data-grid" aria-label="Three episodes with varied initial configurations">
+              <article class="data-card" data-episode="1">
+                <div class="data-media-stack">
+                  <video class="data-video" muted playsinline preload="none" aria-label="Synchronized third-person and egocentric dataset episode"></video>
+                  <span class="data-view-label data-view-label-third">Third-person rollout</span>
+                  <span class="data-view-label data-view-label-ego">Rendered egocentric observation</span>
+                  <div class="data-pending">Three episodes · varied initial configurations</div><p class="media-error data-error" hidden>Dataset clip could not be loaded. Please replay this episode or select another task.</p>
+                </div>
+                <footer><span>Episode 01</span><button type="button" class="data-replay">Replay</button></footer>
+              </article>
+              <article class="data-card" data-episode="2">
+                <div class="data-media-stack">
+                  <video class="data-video" muted playsinline preload="none" aria-label="Synchronized third-person and egocentric dataset episode"></video>
+                  <span class="data-view-label data-view-label-third">Third-person rollout</span>
+                  <span class="data-view-label data-view-label-ego">Rendered egocentric observation</span>
+                  <div class="data-pending">Three episodes · varied initial configurations</div><p class="media-error data-error" hidden>Dataset clip could not be loaded. Please replay this episode or select another task.</p>
+                </div>
+                <footer><span>Episode 02</span><button type="button" class="data-replay">Replay</button></footer>
+              </article>
+              <article class="data-card" data-episode="3">
+                <div class="data-media-stack">
+                  <video class="data-video" muted playsinline preload="none" aria-label="Synchronized third-person and egocentric dataset episode"></video>
+                  <span class="data-view-label data-view-label-third">Third-person rollout</span>
+                  <span class="data-view-label data-view-label-ego">Rendered egocentric observation</span>
+                  <div class="data-pending">Three episodes · varied initial configurations</div><p class="media-error data-error" hidden>Dataset clip could not be loaded. Please replay this episode or select another task.</p>
+                </div>
+                <footer><span>Episode 03</span><button type="button" class="data-replay">Replay</button></footer>
+              </article>
+            </div>
+            <div class="data-controls" aria-label="Dataset episode controls">
+              <button id="data-toggle" type="button" disabled>Play task</button>
+              <button id="data-replay-all" type="button" disabled>Replay task</button>
+              <span id="data-status" aria-live="polite">Waiting for dataset clips.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="deployment" class="deployment-section content-section" aria-labelledby="deployment-title">
+        <div class="section-heading">
+          <h2 id="deployment-title">04 — Real-world Deployment</h2>
+        </div>
+        <div class="deployment-layout" data-manifest="./media/deployment/manifest.json?v=task1-real-base-v1">
+          <div class="deployment-intro">
+            <p>Real robot comparisons between policies trained with real demonstrations and policies trained with Zero-HLM simulation data.</p>
+          </div>
+          <nav class="deployment-task-nav" aria-label="Real-world deployment tasks">
+            <a href="#deployment-task-a"><span>Task 1</span><strong>Mobile Pick-and-Place</strong></a>
+            <a href="#deployment-task-b"><span>Task 2</span><strong>Low-Reach Hat Placement</strong></a>
+            <a href="#deployment-task-c"><span>Task 3</span><strong>Leg-Assisted Basket Transport</strong></a>
+          </nav>
+          <div id="deployment-tasks" class="deployment-tasks" aria-live="polite">
+            <p class="deployment-empty">Loading real-world deployment comparisons...</p>
+          </div>
+        </div>
+      </section>
+      <section id="benchmark" class="research-section content-section" aria-labelledby="benchmark-title">
+        <div class="section-heading"><h2 id="benchmark-title">05 — Benchmark</h2></div>
+        <div id="benchmark-content" aria-live="polite"><p class="research-pending">Loading benchmark results…</p></div>
+      </section>
+      <section id="faq" class="research-section content-section" aria-labelledby="faq-title">
+        <div class="section-heading"><h2 id="faq-title">06 — Key Insights</h2></div>
+        <div id="faq-content"><p class="research-pending">Loading key insights…</p></div>
+      </section>
+      <section id="citation" class="content-section citation-section" aria-labelledby="citation-title">
+        <div class="section-heading"><h2 id="citation-title">07 — Citation</h2></div>
+        <div class="citation-card">
+          <div class="citation-label"><span>BibTeX</span><span class="citation-draft">Placeholder · final citation coming soon</span></div>
+          <pre tabindex="0" aria-label="Draft Zero-HLM BibTeX citation"><code>@misc{yang2026zerohlm,
+  title  = {Zero-HLM: Generalizable Humanoid Loco-Manipulation
+            without Real Robot Data},
+  author = {Yang, Dianyi and others},
+  year   = {2026},
+  note   = {Placeholder; bibliographic details to be finalized}
+}</code></pre>
+        </div>
+      </section>
+    </main>
+    <footer class="project-footer">
+      <div class="footer-institutions" aria-label="Author institutions">
+        <a href="https://www.bit.edu.cn/" target="_blank" rel="noopener noreferrer"><img class="footer-logo footer-logo-bit" src="./affiliations/bit-official.png" width="219" height="45" alt="Beijing Institute of Technology" loading="lazy"></a>
+        <a href="https://www.bigai.ai/" target="_blank" rel="noopener noreferrer"><img class="footer-logo footer-logo-bigai" src="./affiliations/bigai-official.png" width="960" height="256" alt="State Key Laboratory of General Artificial Intelligence, BIGAI" loading="lazy"></a>
+        <a href="https://www.tsinghua.edu.cn/" target="_blank" rel="noopener noreferrer"><img class="footer-logo footer-logo-tsinghua" src="./affiliations/tsinghua-official.png" width="180" height="58" alt="Tsinghua University" loading="lazy"></a>
+        <a class="footer-delta" href="https://deltai.com/en" target="_blank" rel="noopener noreferrer" aria-label="Delta Intelligence"><img class="footer-delta-icon" src="./affiliations/delta-icon.png" width="344" height="344" alt="" loading="lazy"><img class="footer-logo footer-logo-delta" src="./affiliations/delta-wordmark.svg" width="178.11" height="9.91" alt="Delta Intelligence" loading="lazy"></a>
+      </div>
+      <a class="back-to-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+      <div class="footer-credits" aria-label="Website credits">
+        <p>Website design inspired by <a href="https://vision-language-kinematics.github.io/" target="_blank" rel="noopener noreferrer">VLK</a> and <a href="https://wanda.lecar-lab.org/" target="_blank" rel="noopener noreferrer">WANDA</a>. Thank you for the inspiration.</p>
+        <a class="footer-template" href="https://github.com/YOUNG-bit/zero-hlm#reuse-this-template" target="_blank" rel="noopener noreferrer">Website template <span aria-hidden="true">↗</span></a>
+      </div>
+    </footer>
+
+    <script src="./demo-player.js?v=youtube-20261020" defer></script>
+    <script src="./media-bootstrap.js?v=project-demo-20261019" defer></script>
+  </body>
+</html>

@@ -1,0 +1,482 @@
+{
+  "source": {
+    "paper_pages": 27
+  },
+  "assets": {
+    "benchmark_setup": {
+      "label": "Figure 16: Benchmark setup",
+      "path": "./media/research/benchmark-setup-fig16.png?v=paper-20261012",
+      "paper_page": 24
+    },
+    "agentic_real2sim": {
+      "label": "Figure 11: Agentic reconstruction comparison",
+      "path": "./media/research/agentic-real2sim-fig11.png",
+      "paper_page": 20
+    },
+    "agentic_real2sim_details": {
+      "label": "Agentic Real2Sim source detail panel",
+      "path": "./media/research/agentic-real2sim-details.png"
+    }
+  },
+  "benchmark": {
+    "overview": {
+      "figure_id": "Figure 16",
+      "paper_page": 24,
+      "summary": "Four policies, three long-horizon tasks, and nine skill stages. Each model is evaluated on 100 configurations per task, using shared initialization distributions and the same whole-body control interface.",
+      "tasks": [
+        {
+          "id": "task_a",
+          "name": "Mobile Pick-and-Place",
+          "stages": [
+            "Walk",
+            "Pick",
+            "Place"
+          ],
+          "full_task_stage": "Place"
+        },
+        {
+          "id": "task_b",
+          "name": "Low-Reach Hat Placement",
+          "stages": [
+            "Squat-Pick",
+            "Carry",
+            "Place"
+          ],
+          "full_task_stage": "Place"
+        },
+        {
+          "id": "task_c",
+          "name": "Leg-Assisted Basket Transport",
+          "stages": [
+            "Bi-Pick",
+            "Kick",
+            "Bi-Place"
+          ],
+          "full_task_stage": "Bi-Place"
+        }
+      ]
+    },
+    "model_results": {
+      "table_id": "Table 8",
+      "appendix_table_id": "Table 19",
+      "paper_pages": [
+        9,
+        26
+      ],
+      "unit": "success rate (%) over 100 simulation trials per model-task pair",
+      "full_task": [
+        {
+          "model": "Diffusion Policy",
+          "family": "Task-specific IL",
+          "task_a": 3,
+          "task_b": 4,
+          "task_c": 1,
+          "avg": 2.7
+        },
+        {
+          "model": "GR00T N1.7",
+          "family": "Pretrained VLA",
+          "task_a": 66,
+          "task_b": 74,
+          "task_c": 69,
+          "avg": 69.7
+        },
+        {
+          "model": "π0.5",
+          "family": "Pretrained VLA",
+          "task_a": 60,
+          "task_b": 60,
+          "task_c": 57,
+          "avg": 59.0
+        },
+        {
+          "model": "DiT4DiT",
+          "family": "Video Action Model",
+          "task_a": 58,
+          "task_b": 80,
+          "task_c": 54,
+          "avg": 64.0
+        }
+      ],
+      "stagewise": [
+        {
+          "model": "Diffusion Policy",
+          "task_a": {
+            "Walk": 90,
+            "Pick": 11,
+            "Place": 3
+          },
+          "task_b": {
+            "Squat-Pick": 32,
+            "Carry": 4,
+            "Place": 4
+          },
+          "task_c": {
+            "Bi-Pick": 36,
+            "Kick": 44,
+            "Bi-Place": 1
+          },
+          "avg": 2.7
+        },
+        {
+          "model": "GR00T N1.7",
+          "task_a": {
+            "Walk": 100,
+            "Pick": 85,
+            "Place": 66
+          },
+          "task_b": {
+            "Squat-Pick": 92,
+            "Carry": 76,
+            "Place": 74
+          },
+          "task_c": {
+            "Bi-Pick": 93,
+            "Kick": 97,
+            "Bi-Place": 69
+          },
+          "avg": 69.7
+        },
+        {
+          "model": "π0.5",
+          "task_a": {
+            "Walk": 100,
+            "Pick": 82,
+            "Place": 60
+          },
+          "task_b": {
+            "Squat-Pick": 79,
+            "Carry": 60,
+            "Place": 60
+          },
+          "task_c": {
+            "Bi-Pick": 93,
+            "Kick": 98,
+            "Bi-Place": 57
+          },
+          "avg": 59.0
+        },
+        {
+          "model": "DiT4DiT",
+          "task_a": {
+            "Walk": 97,
+            "Pick": 76,
+            "Place": 58
+          },
+          "task_b": {
+            "Squat-Pick": 100,
+            "Carry": 84,
+            "Place": 80
+          },
+          "task_c": {
+            "Bi-Pick": 97,
+            "Kick": 99,
+            "Bi-Place": 54
+          },
+          "avg": 64.0
+        }
+      ]
+    }
+  },
+  "faq": [
+    {
+      "id": "action-observation-gap",
+      "question": "What gaps remain in actions and observations?",
+      "lead": "Generated action labels transfer effectively, while visual observations remain a major source of the sim–real gap.",
+      "answer": "We disentangle actions and observations using four training sets on Task 1. R-25 covers the lower table region with 25 real demonstrations; S-25 covers the upper region with 25 simulation demonstrations. The animation below shows how the two mixed settings are constructed.",
+      "analysis": "R-25 and S-25 both fail in the region absent from their training data. Mixing them expands coverage, but Mix-50 reaches only 2/5 and 4/5 success in the upper and lower regions. In Mix-50*, replacing the simulated images with real observations—while keeping the simulation action labels—raises both results to 5/5. This controlled comparison supports the transferability of generated actions and identifies visual alignment as a key remaining challenge. These results come from five real-world trials per region.",
+      "gap_study": {
+        "rows": [
+          {
+            "data": "R-25",
+            "vision": "R",
+            "action": "R",
+            "sr_up": "0/5",
+            "sr_low": "2/5"
+          },
+          {
+            "data": "S-25",
+            "vision": "S",
+            "action": "S",
+            "sr_up": "4/5",
+            "sr_low": "0/5"
+          },
+          {
+            "data": "Mix-50",
+            "vision": "S+R",
+            "action": "S+R",
+            "sr_up": "2/5",
+            "sr_low": "4/5"
+          },
+          {
+            "data": "Mix-50*",
+            "vision": "R",
+            "action": "S+R",
+            "sr_up": "5/5",
+            "sr_low": "5/5"
+          }
+        ],
+        "source": "Figure 6 · Table 10",
+        "task": "Task 1",
+        "trials_per_region": 5
+      },
+      "paper_pages": [
+        9
+      ]
+    },
+    {
+      "id": "agentic-real2sim",
+      "question": "Why is Gaussian guidance needed for agentic real-to-sim?",
+      "answer": "It provides two complementary forms of guidance: Gaussian-derived geometry anchors scene scale and layout, while matched-view Gaussian renderings from multiple viewpoints guide local refinement. Together, they improve furniture dimensions, support surfaces, and object placement. Removing both forms of guidance more than doubles interaction-region error, from 5.517 to 11.689 cm, even when captured images and camera poses remain available. This shows why image input alone is insufficient for accurate physical scene construction.",
+      "figures": [
+        "Figure 11"
+      ],
+      "tables": [
+        "Table 3",
+        "Table 4"
+      ],
+      "paper_pages": [
+        7,
+        20
+      ],
+      "cd_table": [
+        {
+          "method": "GS-Mesh",
+          "symmetric_cd_cm": 5.894
+        },
+        {
+          "method": "Ours (w/o GS)",
+          "symmetric_cd_cm": 11.689
+        },
+        {
+          "method": "Ours",
+          "symmetric_cd_cm": 5.517
+        }
+      ],
+      "mesh_vs_gs_table": [
+        {
+          "stage": "Walk",
+          "mesh": "18/20",
+          "gs": "20/20"
+        },
+        {
+          "stage": "Pick",
+          "mesh": "3/20",
+          "gs": "10/20"
+        },
+        {
+          "stage": "Place",
+          "mesh": "3/20",
+          "gs": "7/20"
+        }
+      ],
+      "lead": "Gaussian guidance makes agentic reconstruction substantially more accurate."
+    },
+    {
+      "id": "data-scaling",
+      "question": "How does performance scale with data?",
+      "answer": "In real-world Task 1, increasing the training set from 100 to 500–800 generated demonstrations raises success from 35% to 60%. In the simulation benchmark, scaling from 15 to 1,100 demonstrations improves full-task success from 7% to 67% on Task 1, 19% to 76% on Task 2, and 11% to 71% on Task 3.",
+      "figures": [
+        "Figure 3",
+        "Figure 4"
+      ],
+      "paper_pages": [
+        7,
+        8
+      ],
+      "real_world_scaling": {
+        "figure_id": "Figure 3",
+        "task": "Task 1",
+        "unit": "real-world success rate (%)",
+        "x_label": "Training trajectories",
+        "points": [
+          {
+            "trajectories": 100,
+            "success": 35
+          },
+          {
+            "trajectories": 200,
+            "success": 40
+          },
+          {
+            "trajectories": 500,
+            "success": 60
+          },
+          {
+            "trajectories": 800,
+            "success": 60
+          }
+        ]
+      },
+      "simulation_scaling": {
+        "figure_id": "Figure 4",
+        "unit": "benchmark full-task success rate (%)",
+        "x_label": "Training Data",
+        "x": [
+          15,
+          100,
+          500,
+          800,
+          1100
+        ],
+        "series": [
+          {
+            "task": "Task 1",
+            "values": [
+              7,
+              23,
+              64,
+              66,
+              67
+            ]
+          },
+          {
+            "task": "Task 2",
+            "values": [
+              19,
+              39,
+              61,
+              74,
+              76
+            ]
+          },
+          {
+            "task": "Task 3",
+            "values": [
+              11,
+              42,
+              62,
+              69,
+              71
+            ]
+          }
+        ]
+      },
+      "lead": "Scaling simulation-generated training data improves policy performance in both the real world and simulation."
+    },
+    {
+      "id": "sim-real-consistency",
+      "question": "Can simulation reflect real-world performance?",
+      "answer": "Both Task 1 policies achieve comparable success-rate levels across simulation and the real world: 31% versus 40% for real-data training, and 39% versus 35% for simulation-data training. This supports using the benchmark to evaluate humanoid policies. Establishing sim–real success-rate correlation is harder for humanoids than for fixed-base robot arms: whole-body pose, balance, and robot–object alignment make identical trial setups difficult to reproduce. Broader experiments across tasks and models are still needed to validate this correlation.",
+      "tables": [
+        "Table 9"
+      ],
+      "paper_page": 9,
+      "sim_real_consistency_table": [
+        {
+          "test_domain": "Real",
+          "training_data": "Real(100)",
+          "success": "8/20"
+        },
+        {
+          "test_domain": "Real",
+          "training_data": "Sim(100)",
+          "success": "7/20"
+        },
+        {
+          "test_domain": "Sim",
+          "training_data": "Real(100)",
+          "success": "31/100"
+        },
+        {
+          "test_domain": "Sim",
+          "training_data": "Sim(100)",
+          "success": "39/100"
+        }
+      ],
+      "lead": "Yes. Our benchmark provides a reasonable approximation of real-world performance under matched configurations."
+    },
+    {
+      "id": "mixing-real-sim",
+      "question": "Does mixing real and simulation data improve learning?",
+      "answer": "With 100 real demonstrations fixed, Task 1 full-task success improves from 45% with Real+Sim(400) to 55% with Real+Sim(800), while Sim-Ours(800) reaches 60%. Walk stays at 100%, so the gain comes from Pick and Place; across all tasks, the co-training average rises from 46.7% to 53.3%.",
+      "figures": [
+        "Figure 7"
+      ],
+      "tables": [
+        "Table 18"
+      ],
+      "paper_pages": [
+        9,
+        24
+      ],
+      "task_a_cotraining": {
+        "figure_id": "Figure 7",
+        "unit": "stage-wise success rate (%)",
+        "series": [
+          {
+            "data": "Real-Only(100)",
+            "Walk": 100,
+            "Pick": 50,
+            "Place": 40
+          },
+          {
+            "data": "Real+Sim(400)",
+            "Walk": 100,
+            "Pick": 60,
+            "Place": 45
+          },
+          {
+            "data": "Real+Sim(800)",
+            "Walk": 100,
+            "Pick": 70,
+            "Place": 55
+          },
+          {
+            "data": "Sim-Ours(800)",
+            "Walk": 100,
+            "Pick": 75,
+            "Place": 60
+          }
+        ]
+      },
+      "detailed_cotraining": {
+        "table_id": "Table 18",
+        "unit": "successful trials out of 20; avg is mean full-task success across Tasks A-C",
+        "rows": [
+          {
+            "training_data": "Real+Sim(400)",
+            "real_sim_ratio": "1:4",
+            "task_a": {
+              "Walk": "20/20",
+              "Pick": "12/20",
+              "Place": "9/20"
+            },
+            "task_b": {
+              "Squat-Pick": "15/20",
+              "Carry": "15/20",
+              "Place": "11/20"
+            },
+            "task_c": {
+              "Bi-Pick": "18/20",
+              "Kick": "13/20",
+              "Bi-Place": "8/20"
+            },
+            "avg": 46.7
+          },
+          {
+            "training_data": "Real+Sim(800)",
+            "real_sim_ratio": "1:8",
+            "task_a": {
+              "Walk": "20/20",
+              "Pick": "14/20",
+              "Place": "11/20"
+            },
+            "task_b": {
+              "Squat-Pick": "14/20",
+              "Carry": "14/20",
+              "Place": "12/20"
+            },
+            "task_c": {
+              "Bi-Pick": "20/20",
+              "Kick": "12/20",
+              "Bi-Place": "9/20"
+            },
+            "avg": 53.3
+          }
+        ]
+      },
+      "lead": "Mixing real and simulation data improves the mixed-data baseline, especially manipulation stages, but it does not exceed simulation-only training in this setting."
+    }
+  ]
+}

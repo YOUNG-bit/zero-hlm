@@ -1,0 +1,559 @@
+{
+  "schema_version": 3,
+  "labels": {
+    "real": "Real-data trained",
+    "sim": "Sim-data trained",
+    "note": "Both panels show physical G1 real-world deployments; labels indicate training data."
+  },
+  "featured": {
+    "repeatedPickPlace": {
+      "id": "task-a-repeated-11-successes",
+      "afterTask": "task-a",
+      "beforeTask": "task-b",
+      "title": "11 consecutive successful pick-and-place trials",
+      "subtitle": "One continuous recording, accelerated only. All manual resets are retained.",
+      "group": "Repeated",
+      "taskId": "task-a",
+      "training": "Sim-data trained",
+      "deployment": "Physical G1 real-world deployment",
+      "src": "./media/deployment/task1-repeated-11-success-continuous.mp4",
+      "poster": "./media/deployment/task1-repeated-11-success-accelerated.jpg",
+      "duration": 93.25,
+      "fps": 24,
+      "frames": 2238,
+      "completedRollouts": 11,
+      "playbackRate": 1,
+      "speedLabel": "Execution 2\u00d7 \u00b7 Reset 3\u00d7",
+      "countSemantics": "Eleven completed placements with human resets between attempts.",
+      "successMarkers": [
+        {
+          "count": 1,
+          "time": 4.333333,
+          "frame": 104
+        },
+        {
+          "count": 2,
+          "time": 12.0,
+          "frame": 288
+        },
+        {
+          "count": 3,
+          "time": 20.75,
+          "frame": 498
+        },
+        {
+          "count": 4,
+          "time": 28.416667,
+          "frame": 682
+        },
+        {
+          "count": 5,
+          "time": 35.166667,
+          "frame": 844
+        },
+        {
+          "count": 6,
+          "time": 41.833333,
+          "frame": 1004
+        },
+        {
+          "count": 7,
+          "time": 48.0,
+          "frame": 1152
+        },
+        {
+          "count": 8,
+          "time": 54.25,
+          "frame": 1302
+        },
+        {
+          "count": 9,
+          "time": 63.916667,
+          "frame": 1534
+        },
+        {
+          "count": 10,
+          "time": 83.083333,
+          "frame": 1994
+        },
+        {
+          "count": 11,
+          "time": 90.75,
+          "frame": 2178
+        }
+      ],
+      "speedSegments": [
+        {
+          "start": 0.0,
+          "end": 0.333333,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 0.333333,
+          "end": 5.333333,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 5.333333,
+          "end": 6.0,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 6.0,
+          "end": 13.25,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 13.25,
+          "end": 13.75,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 13.75,
+          "end": 21.75,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 21.75,
+          "end": 22.416667,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 22.416667,
+          "end": 29.666667,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 29.666667,
+          "end": 30.166667,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 30.166667,
+          "end": 36.166667,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 36.166667,
+          "end": 36.833333,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 36.833333,
+          "end": 42.833333,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 42.833333,
+          "end": 43.5,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 43.5,
+          "end": 48.75,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 48.75,
+          "end": 49.25,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 49.25,
+          "end": 55.25,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 55.25,
+          "end": 55.916667,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 55.916667,
+          "end": 66.416667,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 66.416667,
+          "end": 68.083333,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 68.083333,
+          "end": 85.083333,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        },
+        {
+          "start": 85.083333,
+          "end": 85.75,
+          "speed": 3,
+          "kind": "reset",
+          "label": "3\u00d7 Reset"
+        },
+        {
+          "start": 85.75,
+          "end": 93.25,
+          "speed": 2,
+          "kind": "execution",
+          "label": "2\u00d7 Execution"
+        }
+      ],
+      "uiBehavior": {
+        "counter": "Count markers with time <= video.currentTime; recompute on seek and reset at 0.",
+        "speedLabel": "Use speedSegments for the current time; keep final count at 11 on the final frame."
+      },
+      "continuity": "Single recording with no internal cuts; execution 2\u00d7 and reset 3\u00d7."
+    }
+  },
+  "tasks": [
+    {
+      "id": "task-a",
+      "title": "Mobile Pick-and-Place",
+      "prompt": "Walk to the table, pick up the banana, and place it into the target basket.",
+      "demos": [
+        {
+          "id": "task-a-base-01",
+          "group": "Base",
+          "label": "Base 01",
+          "note": "Base physical deployment comparison.",
+          "real": {
+            "src": "./media/deployment/task1-base-1-real.mp4?v=20261019",
+            "poster": "./media/deployment/task1-base-1-real.jpg?v=20261019",
+            "duration": 10,
+            "outcome": "Failure",
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task1-base-1-sim.mp4",
+            "poster": "./media/deployment/task1-base-1-sim.jpg",
+            "outcome": "Success",
+            "duration": 23.417,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-a-base-02",
+          "group": "Base",
+          "label": "Base 02",
+          "note": "Base physical deployment comparison.",
+          "real": {
+            "src": "./media/deployment/task1-base-2-real.mp4?v=20261019",
+            "poster": "./media/deployment/task1-base-2-real.jpg?v=20261019",
+            "duration": 24,
+            "outcome": "Success",
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task1-base-2-sim.mp4",
+            "poster": "./media/deployment/task1-base-2-sim.jpg",
+            "outcome": "Success",
+            "duration": 20.959,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-a-generalized-01",
+          "group": "Generalized",
+          "label": "Generalized 01",
+          "note": "Changed initial robot/object configuration.",
+          "real": {
+            "src": "./media/deployment/task1-ood-1-real.mp4",
+            "poster": "./media/deployment/task1-ood-1-real.jpg",
+            "outcome": "Failure",
+            "duration": 9.959,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task1-ood-1-sim.mp4",
+            "poster": "./media/deployment/task1-ood-1-sim.jpg",
+            "outcome": "Success",
+            "duration": 26.042,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-a-generalized-02",
+          "group": "Generalized",
+          "label": "Generalized 02",
+          "note": "Changed initial robot/object configuration.",
+          "real": {
+            "src": "./media/deployment/task1-ood-2-real.mp4",
+            "poster": "./media/deployment/task1-ood-2-real.jpg",
+            "outcome": "Failure",
+            "duration": 12.0,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task1-ood-2-sim.mp4",
+            "poster": "./media/deployment/task1-ood-2-sim.jpg",
+            "outcome": "Success",
+            "duration": 18.0,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-a-generalized-03",
+          "group": "Generalized",
+          "label": "Generalized 03",
+          "note": "Changed initial robot/object configuration.",
+          "real": {
+            "src": "./media/deployment/task1-ood-3-real.mp4",
+            "poster": "./media/deployment/task1-ood-3-real.jpg",
+            "outcome": "Success",
+            "duration": 44.084,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task1-ood-3-sim.mp4",
+            "poster": "./media/deployment/task1-ood-3-sim.jpg",
+            "outcome": "Success",
+            "duration": 23.0,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-a-generalized-04",
+          "group": "Generalized",
+          "label": "Generalized 04",
+          "note": "Changed initial robot/object configuration.",
+          "real": {
+            "src": "./media/deployment/task1-ood-4-real.mp4",
+            "poster": "./media/deployment/task1-ood-4-real.jpg",
+            "outcome": "Failure",
+            "duration": 21.042,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task1-ood-4-sim.mp4",
+            "poster": "./media/deployment/task1-ood-4-sim.jpg",
+            "outcome": "Success",
+            "duration": 25.625,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-a-generalized-05",
+          "group": "Generalized",
+          "label": "Generalized 05",
+          "note": "Changed initial robot/object configuration.",
+          "real": {
+            "src": "./media/deployment/task1-ood-5-real.mp4",
+            "poster": "./media/deployment/task1-ood-5-real.jpg",
+            "outcome": "Failure",
+            "duration": 23.042,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task1-ood-5-sim.mp4",
+            "poster": "./media/deployment/task1-ood-5-sim.jpg",
+            "outcome": "Success",
+            "duration": 22.0,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-a-generalized-06",
+          "group": "Generalized",
+          "label": "Generalized 06",
+          "note": "Changed initial robot/object configuration.",
+          "real": {
+            "src": "./media/deployment/task1-ood-6-real.mp4",
+            "poster": "./media/deployment/task1-ood-6-real.jpg",
+            "outcome": "Failure",
+            "duration": 23.042,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task1-ood-6-sim.mp4",
+            "poster": "./media/deployment/task1-ood-6-sim.jpg",
+            "outcome": "Success",
+            "duration": 47.0,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-a-generalized-07",
+          "group": "Generalized",
+          "label": "Generalized 07",
+          "note": "Changed initial robot/object configuration.",
+          "real": {
+            "src": "./media/deployment/task1-ood-7-real.mp4",
+            "poster": "./media/deployment/task1-ood-7-real.jpg",
+            "outcome": "Failure",
+            "duration": 25.042,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task1-ood-7-sim.mp4",
+            "poster": "./media/deployment/task1-ood-7-sim.jpg",
+            "outcome": "Success",
+            "duration": 32.5,
+            "label": "Sim-data trained"
+          }
+        }
+      ]
+    },
+    {
+      "id": "task-b",
+      "title": "Low-Reach Hat Placement",
+      "prompt": "Squat to pick up the hat, stand up, carry it to the cabinet, and place it into the basket.",
+      "demos": [
+        {
+          "id": "task-b-base-01",
+          "group": "Base",
+          "label": "Base 01",
+          "note": "Base physical deployment comparison.",
+          "real": {
+            "src": "./media/deployment/task2-base-1-real.mp4",
+            "poster": "./media/deployment/task2-base-1-real.jpg",
+            "outcome": "Failure",
+            "duration": 16.0,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task2-base-1-sim.mp4",
+            "poster": "./media/deployment/task2-base-1-sim.jpg",
+            "outcome": "Success",
+            "duration": 29.417,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-b-base-02",
+          "group": "Base",
+          "label": "Base 02",
+          "note": "Sim-data-trained physical deployment.",
+          "sim": {
+            "src": "./media/deployment/task2-base-2-sim.mp4",
+            "poster": "./media/deployment/task2-base-2-sim.jpg",
+            "outcome": "Failure",
+            "duration": 29.0,
+            "label": "Sim-data trained"
+          },
+          "display": "sim-only"
+        },
+        {
+          "id": "task-b-generalized-01",
+          "group": "Generalized",
+          "label": "Generalized 01",
+          "note": "Changed initial robot/object configuration.",
+          "real": {
+            "src": "./media/deployment/task2-ood-1-real.mp4",
+            "poster": "./media/deployment/task2-ood-1-real.jpg",
+            "outcome": "Failure",
+            "duration": 17.0,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task2-ood-1-sim.mp4",
+            "poster": "./media/deployment/task2-ood-1-sim.jpg",
+            "outcome": "Success",
+            "duration": 29.0,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-b-generalized-02",
+          "group": "Generalized",
+          "label": "Generalized 02",
+          "note": "Changed initial robot/object configuration.",
+          "real": {
+            "src": "./media/deployment/task2-ood-2-real.mp4",
+            "poster": "./media/deployment/task2-ood-2-real.jpg",
+            "outcome": "Failure",
+            "duration": 15.0,
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task2-ood-2-sim.mp4",
+            "poster": "./media/deployment/task2-ood-2-sim.jpg",
+            "outcome": "Success",
+            "duration": 33.0,
+            "label": "Sim-data trained"
+          }
+        }
+      ]
+    },
+    {
+      "id": "task-c",
+      "title": "Leg-Assisted Basket Transport",
+      "prompt": "Carry the basket with both hands, close the cabinet door with the foot, and place the basket on the stool.",
+      "demos": [
+        {
+          "id": "task-c-base-01",
+          "group": "Base",
+          "label": "Base 01",
+          "note": "Base physical deployment comparison.",
+          "real": {
+            "src": "./media/deployment/task3-base-1-real.mp4?v=20261019",
+            "poster": "./media/deployment/task3-base-1-real.jpg?v=20261019",
+            "duration": 26,
+            "outcome": "Success",
+            "label": "Real-data trained"
+          },
+          "sim": {
+            "src": "./media/deployment/task3-base-1-sim.mp4",
+            "poster": "./media/deployment/task3-base-1-sim.jpg",
+            "outcome": "Success",
+            "duration": 37.0,
+            "label": "Sim-data trained"
+          }
+        },
+        {
+          "id": "task-c-grasp-detail",
+          "group": "Detail",
+          "label": "Grasp detail",
+          "note": "Close-view grasp detail only; not a complete independent task rollout.",
+          "sim": {
+            "src": "./media/deployment/task3-grasp-detail-sim.mp4",
+            "poster": "./media/deployment/task3-grasp-detail-sim.jpg",
+            "outcome": "",
+            "duration": 20.0,
+            "label": "Sim-data trained"
+          },
+          "display": "sim-only"
+        }
+      ]
+    }
+  ]
+}
