@@ -289,7 +289,7 @@
     article.classList.toggle('deployment-instructions', Boolean(task.instructionPair));
     const header = el('header', 'deployment-task-header');
     const copy = el('div');
-    copy.append(el('p', 'deployment-task-kicker', task.instructionPair ? 'Language-conditioned object selection' : `Task ${index + 1} · Real robot comparison`));
+    copy.append(el('p', 'deployment-task-kicker', task.instructionPair ? 'Task 1 · Object–Goal Pair' : `Task ${index + 1} · Real robot comparison`));
     copy.append(el('h3', '', task.title));
     if (task.prompt) copy.append(el('p', 'deployment-task-prompt', task.prompt));
     const count = el('div', 'deployment-task-count');
@@ -333,6 +333,7 @@
     replay.textContent = 'Replay pair';
     buttons.append(toggle, replay);
     controls.append(buttons, el('div', 'deployment-note', 'Both videos are real robot deployments; labels indicate training data.'));
+    selection.hidden = Boolean(task.instructionPair);
     main.append(selection, compare, controls);
 
     const playlist = el('aside', 'deployment-playlist');
@@ -1028,13 +1029,13 @@
       id: 'task-a-instructions',
       navTaskId: 'task-a',
       instructionPair: true,
-      title: 'Same model, different instructions',
-      prompt: 'Both objects are present. The instruction selects the target object and destination; the other object remains untouched.',
+      title: 'Object–Goal Generalization',
+      prompt: 'From banana-to-basket to bitter-melon-to-plate, the same policy follows the instructed object–goal pair. With both objects present, these real-world rollouts illustrate selecting the requested object and placement target while leaving the distractor untouched.',
       instructions: ['Place the banana in the woven basket.', 'Place the bitter melon on the white plate.'],
       demos: [normalizeDemo({
         id: 'task-a-instruction-pair',
         group: 'Language-conditioned object selection',
-        label: 'Same model, different instructions',
+        label: 'Object–Goal Generalization',
         real: {src: './media/deployment/task1-instruction-banana.mp4', poster: './media/deployment/task1-instruction-banana.jpg', duration: 33},
         sim: {src: './media/deployment/task1-instruction-bitter-melon.mp4', poster: './media/deployment/task1-instruction-bitter-melon.jpg', duration: 28}
       })]

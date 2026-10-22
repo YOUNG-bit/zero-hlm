@@ -610,3 +610,5 @@
 .deployment-trial-result{display:block;font-size:13px;font-weight:700;color:#c6d2d7}
 .deployment-trial-result[data-outcome="Success"]{color:#d5b57b}
 .deployment-trial-result[data-outcome="Fail"]{color:#ed7777}
+
+.deployment-instructions .deployment-selection[hidden]{display:none}
