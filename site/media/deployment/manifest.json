@@ -23,7 +23,7 @@
       "frames": 2238,
       "completedRollouts": 11,
       "playbackRate": 1,
-      "speedLabel": "Execution 2\u00d7 \u00b7 Reset 3\u00d7",
+      "speedLabel": "Execution 2× · Reset 3×",
       "countSemantics": "Eleven completed placements with human resets between attempts.",
       "successMarkers": [
         {
@@ -88,161 +88,433 @@
           "end": 0.333333,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 0.333333,
           "end": 5.333333,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 5.333333,
           "end": 6.0,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 6.0,
           "end": 13.25,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 13.25,
           "end": 13.75,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 13.75,
           "end": 21.75,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 21.75,
           "end": 22.416667,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 22.416667,
           "end": 29.666667,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 29.666667,
           "end": 30.166667,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 30.166667,
           "end": 36.166667,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 36.166667,
           "end": 36.833333,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 36.833333,
           "end": 42.833333,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 42.833333,
           "end": 43.5,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 43.5,
           "end": 48.75,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 48.75,
           "end": 49.25,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 49.25,
           "end": 55.25,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 55.25,
           "end": 55.916667,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 55.916667,
           "end": 66.416667,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 66.416667,
           "end": 68.083333,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 68.083333,
           "end": 85.083333,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         },
         {
           "start": 85.083333,
           "end": 85.75,
           "speed": 3,
           "kind": "reset",
-          "label": "3\u00d7 Reset"
+          "label": "3× Reset"
         },
         {
           "start": 85.75,
           "end": 93.25,
           "speed": 2,
           "kind": "execution",
-          "label": "2\u00d7 Execution"
+          "label": "2× Execution"
         }
       ],
       "uiBehavior": {
         "counter": "Count markers with time <= video.currentTime; recompute on seek and reset at 0.",
         "speedLabel": "Use speedSegments for the current time; keep final count at 11 on the final frame."
       },
-      "continuity": "Single recording with no internal cuts; execution 2\u00d7 and reset 3\u00d7."
+      "continuity": "Single recording with no internal cuts; execution 2× and reset 3×."
+    },
+    "walkPickPlace": {
+      "id": "task-a-walk-pick-place-continuous",
+      "taskId": "task-a",
+      "afterTask": "task-a",
+      "layout": "video-left",
+      "kicker": "Repeated mobile manipulation",
+      "title": "18 repeated walk–pick–and–place trials",
+      "subtitle": "Walk to the table, pick, and place—repeated across different starting positions. One continuous recording with all intervening manual resets and the rest break retained.",
+      "counterLabel": "completed trials",
+      "completedRollouts": 18,
+      "src": "./media/deployment/task1-walk-pick-place-20261022.mp4",
+      "poster": "./media/deployment/task1-walk-pick-place-20261022.jpg",
+      "duration": 236.7,
+      "playbackRate": 1,
+      "speedLabel": "Execution 10× · Reset 3× · Rest 5×",
+      "successMarkers": [
+        {
+          "count": 1,
+          "time": 2.1
+        },
+        {
+          "count": 2,
+          "time": 11.766667
+        },
+        {
+          "count": 3,
+          "time": 21.5
+        },
+        {
+          "count": 4,
+          "time": 33.7
+        },
+        {
+          "count": 5,
+          "time": 48.333333
+        },
+        {
+          "count": 6,
+          "time": 56.9
+        },
+        {
+          "count": 7,
+          "time": 68.166667
+        },
+        {
+          "count": 8,
+          "time": 128.033333
+        },
+        {
+          "count": 9,
+          "time": 140.366667
+        },
+        {
+          "count": 10,
+          "time": 147.933333
+        },
+        {
+          "count": 11,
+          "time": 157.8
+        },
+        {
+          "count": 12,
+          "time": 171.633333
+        },
+        {
+          "count": 13,
+          "time": 178.666667
+        },
+        {
+          "count": 14,
+          "time": 188.3
+        },
+        {
+          "count": 15,
+          "time": 196.733333
+        },
+        {
+          "count": 16,
+          "time": 209.266667
+        },
+        {
+          "count": 17,
+          "time": 225.333333
+        },
+        {
+          "count": 18,
+          "time": 236.6
+        }
+      ],
+      "speedSegments": [
+        {
+          "start": 0,
+          "end": 2.2,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 2.2,
+          "end": 8.866667,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 8.866667,
+          "end": 11.866667,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 11.866667,
+          "end": 17.2,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 17.2,
+          "end": 21.6,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 21.6,
+          "end": 29.6,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 29.6,
+          "end": 33.8,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 33.8,
+          "end": 46.133333,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 46.133333,
+          "end": 48.433333,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 48.433333,
+          "end": 53.1,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 53.1,
+          "end": 57.0,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 57.0,
+          "end": 65.666667,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 65.666667,
+          "end": 68.266667,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 68.266667,
+          "end": 121.266667,
+          "label": "Rest · 5×"
+        },
+        {
+          "start": 121.266667,
+          "end": 124.933333,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 124.933333,
+          "end": 128.133333,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 128.133333,
+          "end": 138.466667,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 138.466667,
+          "end": 140.466667,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 140.466667,
+          "end": 146.133333,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 146.133333,
+          "end": 148.033333,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 148.033333,
+          "end": 154.7,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 154.7,
+          "end": 157.9,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 157.9,
+          "end": 170.233333,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 170.233333,
+          "end": 171.733333,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 171.733333,
+          "end": 176.066667,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 176.066667,
+          "end": 178.766667,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 178.766667,
+          "end": 186.1,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 186.1,
+          "end": 188.4,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 188.4,
+          "end": 194.733333,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 194.733333,
+          "end": 196.833333,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 196.833333,
+          "end": 206.166667,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 206.166667,
+          "end": 209.366667,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 209.366667,
+          "end": 222.033333,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 222.033333,
+          "end": 225.433333,
+          "label": "Execution · 10×"
+        },
+        {
+          "start": 225.433333,
+          "end": 234.1,
+          "label": "Manual reset · 3×"
+        },
+        {
+          "start": 234.1,
+          "end": 236.7,
+          "label": "Execution · 10×"
+        }
+      ]
     }
   },
   "tasks": [

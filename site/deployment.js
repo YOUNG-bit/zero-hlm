@@ -163,6 +163,8 @@
     return {
       id: clean(source.id || extractedDemo?.id) || `${task.id}-repeated-highlight`,
       taskId: task.id,
+      layout: source.layout === 'video-left' ? 'video-left' : 'video-right',
+      counterLabel: clean(source.counterLabel) || 'successes',
       kicker: clean(source.kicker) || 'Repeated pick-and-place',
       title: clean(source.title || source.label || extractedDemo?.label) || 'Repeated pick-and-place',
       note: clean(source.subtitle || source.note || source.description || extractedDemo?.note) || 'Repeated real-world deployment with manual resets between attempts.',
@@ -187,12 +189,16 @@
         const explicitFeature = task.featured || task.repeated || (topFeatured?.taskId === taskId || topFeatured?.afterTask === taskId ? topFeatured : null) || (topRepeated?.taskId === taskId || topRepeated?.afterTask === taskId ? topRepeated : null);
         const extracted = demos.find(looksRepeated);
         const feature = normalizeFeature(explicitFeature, {id: taskId}, extracted);
+        const walkSource = manifest?.featured?.walkPickPlace;
+        const walkFeature = walkSource && (walkSource.taskId === taskId || walkSource.afterTask === taskId)
+          ? normalizeFeature(walkSource, {id: taskId}) : null;
         return {
           id: taskId,
           title: clean(task.title) || fallback.title || `Task ${index + 1}`,
           prompt: clean(task.prompt || task.description) || fallback.prompt || '',
           demos: demos.filter(demo => !feature || demo.id !== feature.id).filter(demo => !looksRepeated(demo)),
-          featured: feature
+          featured: feature,
+          highlights: [feature, walkFeature].filter(Boolean)
         };
       })
     };
@@ -335,13 +341,14 @@
     article.id = `deployment-${feature.id}`;
     article.dataset.featureId = feature.id;
     article.dataset.taskId = feature.taskId;
+    article.classList.toggle('deployment-featured--video-left', feature.layout === 'video-left');
     const copy = el('div', 'deployment-featured-copy');
     copy.append(el('p', 'deployment-task-kicker', feature.kicker));
     copy.append(el('h3', '', feature.title));
     copy.append(el('p', 'deployment-task-prompt', feature.note));
     const stats = el('div', 'deployment-featured-stats');
     const counter = el('div', 'deployment-success-counter');
-    counter.innerHTML = '<strong>0</strong><span>/ 11 successes</span>';
+    counter.append(el('strong', '', '0'), el('span', '', `/ ${feature.totalSuccesses} ${feature.counterLabel}`));
     const speed = el('div', 'deployment-speed-pill', feature.speedLabel || 'Original speed');
     stats.append(counter, speed);
 
@@ -351,7 +358,7 @@
     video.muted = true;
     video.playsInline = true;
     video.preload = 'none';
-    video.setAttribute('aria-label', `${feature.title} repeated pick-and-place highlight`);
+    video.setAttribute('aria-label', feature.title);
     const placeholder = el('div', 'deployment-placeholder', 'Repeated rollout footage coming soon');
     const loading = el('div', 'deployment-loading');
     loading.hidden = true;
@@ -377,7 +384,7 @@
     seek.max = '1000';
     seek.value = '0';
     seek.disabled = true;
-    seek.setAttribute('aria-label', 'Repeated pick-and-place highlight timeline');
+    seek.setAttribute('aria-label', `${feature.title} timeline`);
     seekRow.append(seek, el('span', 'timecode deployment-duration', '0:00'));
     controls.append(buttons, seekRow);
 
@@ -882,7 +889,7 @@
     if (!feature.successMarkers.length && ended) count = feature.totalSuccesses;
     count = Math.min(feature.totalSuccesses, count);
     article.querySelector('.deployment-success-counter strong').textContent = String(count);
-    article.querySelector('.deployment-success-counter span').textContent = `/ ${feature.totalSuccesses} successes`;
+    article.querySelector('.deployment-success-counter span').textContent = `/ ${feature.totalSuccesses} ${feature.counterLabel}`;
     article.querySelector('.deployment-speed-pill').textContent = featureSpeedLabel(feature, time);
   }
 
@@ -993,12 +1000,12 @@
       host.append(article);
       setupTask(article, task);
       articles.push(article);
-      if (task.featured && index === 0) {
-        const featureArticle = renderFeatured(task.featured);
+      task.highlights.forEach(feature => {
+        const featureArticle = renderFeatured(feature);
         host.append(featureArticle);
-        setupFeatured(featureArticle, task.featured);
+        setupFeatured(featureArticle, feature);
         featureArticles.push(featureArticle);
-      }
+      });
     });
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => updateViewport(entry.target));
