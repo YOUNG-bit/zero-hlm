@@ -254,8 +254,8 @@
       "subtitle": "18 walk–pick–and–place attempts, with 11 successful placements. One continuous recording; all manual resets and the motor-cooling break are retained.",
       "counterLabel": "successes",
       "completedRollouts": 18,
-      "src": "./media/deployment/task1-walk-pick-place-20261022.mp4?v=outcomes-v3",
-      "poster": "./media/deployment/task1-walk-pick-place-20261022.jpg?v=outcomes-v3",
+      "src": "./media/deployment/task1-walk-pick-place-20261022.mp4?v=readable-labels-v4",
+      "poster": "./media/deployment/task1-walk-pick-place-20261022.jpg?v=readable-labels-v4",
       "duration": 143.75,
       "playbackRate": 1,
       "speedLabel": "Execution 10× · Reset 5× · Cooling break 20×",
@@ -897,9 +897,9 @@
           "note": "Real-world deployment with human interference. Original-speed footage.",
           "display": "sim-only",
           "sim": {
-            "src": "./media/deployment/task3-human-perturbation.mp4",
+            "src": "./media/deployment/task3-human-perturbation.mp4?v=complete-placement",
             "poster": "./media/deployment/task3-human-perturbation.jpg",
-            "duration": 40,
+            "duration": 43,
             "outcome": "",
             "label": "Sim-data trained"
           }
