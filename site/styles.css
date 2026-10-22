@@ -578,3 +578,18 @@
   .deployment-featured--video-left .deployment-featured-media,.deployment-featured--video-left .deployment-featured-stats{grid-column:1;grid-row:1}
 }
 @media(min-width:761px) and (max-width:1080px){.deployment-featured--video-left{grid-template-columns:minmax(0,.66fr) minmax(240px,.34fr)}}
+
+/* Compact counter leaves the manipulation area clear. */
+#deployment-task-a-walk-pick-place-continuous .deployment-featured-stats{align-self:end;justify-self:start;min-width:0;margin:10px;padding:8px 10px;gap:0;border-radius:10px;box-shadow:none}
+#deployment-task-a-walk-pick-place-continuous .deployment-success-counter{gap:3px}
+#deployment-task-a-walk-pick-place-continuous .deployment-success-counter strong{font-size:28px;letter-spacing:-.04em}
+#deployment-task-a-walk-pick-place-continuous .deployment-success-counter span{font-size:8px;letter-spacing:.08em}
+#deployment-task-a-walk-pick-place-continuous .deployment-speed-pill{display:none}
+@media(max-width:760px){
+ #deployment-task-a-walk-pick-place-continuous .deployment-featured-copy{grid-row:1}
+ #deployment-task-a-walk-pick-place-continuous .deployment-featured-media,#deployment-task-a-walk-pick-place-continuous .deployment-featured-stats{grid-row:2;grid-column:1}
+ #deployment-task-a-walk-pick-place-continuous .deployment-featured-controls{grid-row:3}
+ #deployment-task-a-walk-pick-place-continuous .deployment-featured-stats{display:block;margin:6px;padding:5px 7px}
+ #deployment-task-a-walk-pick-place-continuous .deployment-success-counter strong{font-size:22px}
+ #deployment-task-a-walk-pick-place-continuous .deployment-success-counter span{font-size:7px}
+}

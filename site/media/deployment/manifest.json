@@ -824,6 +824,20 @@
             "label": "Sim-data trained"
           },
           "display": "sim-only"
+        },
+        {
+          "id": "task-c-human-perturbation",
+          "group": "Robustness",
+          "label": "Human perturbation",
+          "note": "Real-world deployment with human interference. Original-speed footage.",
+          "display": "sim-only",
+          "sim": {
+            "src": "./media/deployment/task3-human-perturbation.mp4",
+            "poster": "./media/deployment/task3-human-perturbation.jpg",
+            "duration": 40,
+            "outcome": "",
+            "label": "Sim-data trained"
+          }
         }
       ]
     }
