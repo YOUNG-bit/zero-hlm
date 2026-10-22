@@ -593,3 +593,11 @@
  #deployment-task-a-walk-pick-place-continuous .deployment-success-counter strong{font-size:22px}
  #deployment-task-a-walk-pick-place-continuous .deployment-success-counter span{font-size:7px}
 }
+
+#deployment-task-a-walk-pick-place-continuous .deployment-featured-stats{gap:5px;max-width:155px}
+#deployment-task-a-walk-pick-place-continuous .deployment-success-counter{display:flex;align-items:baseline;gap:6px}
+#deployment-task-a-walk-pick-place-continuous .deployment-success-counter span{font-size:9px}
+.deployment-trial-index{font-size:10px;color:#c6d2d7;letter-spacing:.04em}
+.deployment-trial-result{display:block;font-size:10px;font-weight:700;color:#c6d2d7}
+.deployment-trial-result[data-outcome="Success"]{color:#d5b57b}
+.deployment-trial-result[data-outcome="Fail"]{color:#ed7777}

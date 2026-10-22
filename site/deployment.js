@@ -164,6 +164,7 @@
       id: clean(source.id || extractedDemo?.id) || `${task.id}-repeated-highlight`,
       taskId: task.id,
       layout: source.layout === 'video-left' ? 'video-left' : 'video-right',
+      trials: Array.isArray(source.trials) ? source.trials : [],
       counterLabel: clean(source.counterLabel) || 'successes',
       kicker: clean(source.kicker) || 'Repeated pick-and-place',
       title: clean(source.title || source.label || extractedDemo?.label) || 'Repeated pick-and-place',
@@ -351,6 +352,9 @@
     counter.append(el('strong', '', '0'), el('span', '', `/ ${feature.totalSuccesses} ${feature.counterLabel}`));
     const speed = el('div', 'deployment-speed-pill', feature.speedLabel || 'Original speed');
     stats.append(counter, speed);
+    if (feature.trials.length) {
+      stats.append(el('span', 'deployment-trial-index', `Trial 1 / ${feature.trials.length}`), el('span', 'deployment-trial-result', 'In progress'));
+    }
 
     const media = el('div', 'deployment-featured-media');
     const video = document.createElement('video');
@@ -875,6 +879,15 @@
     return segment?.label || feature.speedLabel || 'Original speed';
   }
 
+  function trialProgress(trials, time) {
+    const current = trials.filter(trial => trial.start <= time).at(-1) || trials[0];
+    return {
+      successes: trials.filter(trial => trial.resultAt <= time && trial.outcome === 'Success').length,
+      index: trials.indexOf(current) + 1,
+      outcome: time >= current.resultAt ? current.outcome : 'In progress'
+    };
+  }
+
   function updateFeatureStats(video, ended = false, timeOverride = null) {
     const article = video.closest('.deployment-featured');
     if (!article) return;
@@ -888,6 +901,16 @@
     });
     if (!feature.successMarkers.length && ended) count = feature.totalSuccesses;
     count = Math.min(feature.totalSuccesses, count);
+    if (feature.trials.length) {
+      const progress = trialProgress(feature.trials, time);
+      article.querySelector('.deployment-success-counter strong').textContent = String(progress.successes);
+      article.querySelector('.deployment-success-counter span').textContent = 'successes';
+      article.querySelector('.deployment-trial-index').textContent = `Trial ${progress.index} / ${feature.trials.length}`;
+      const result = article.querySelector('.deployment-trial-result');
+      result.textContent = progress.outcome;
+      result.dataset.outcome = progress.outcome;
+      return;
+    }
     article.querySelector('.deployment-success-counter strong').textContent = String(count);
     article.querySelector('.deployment-success-counter span').textContent = `/ ${feature.totalSuccesses} ${feature.counterLabel}`;
     article.querySelector('.deployment-speed-pill').textContent = featureSpeedLabel(feature, time);
