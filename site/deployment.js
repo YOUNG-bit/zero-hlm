@@ -21,7 +21,7 @@
           {id: 'task-a-base-01', group: 'Base', label: 'Base 01', note: 'Base footage coming soon', real: {pending: 'Real-data trained footage coming soon'}, sim: {pending: 'Sim-data trained footage coming soon'}},
           {id: 'task-a-base-02', group: 'Base', label: 'Base 02', note: 'Base footage coming soon', real: {pending: 'Real-data trained footage coming soon'}, sim: {pending: 'Sim-data trained footage coming soon'}},
           {id: 'task-a-ood-01', group: 'Generalized', label: 'Generalized 01', note: 'Generalized footage coming soon', real: {pending: 'Real-data trained footage coming soon'}, sim: {pending: 'Sim-data trained footage coming soon'}},
-          {id: 'task-a-repeated-01', group: 'Repeated', label: 'Repeated pick-and-place', note: 'Repeated rollout footage coming soon', real: {pending: 'Real-data trained footage coming soon'}, sim: {pending: 'Sim-data trained footage coming soon'}, totalSuccesses: 11}
+          {id: 'task-a-repeated-01', group: 'Uncut', label: 'Uncut pick-and-place', note: 'Uncut rollout footage coming soon', real: {pending: 'Real-data trained footage coming soon'}, sim: {pending: 'Sim-data trained footage coming soon'}, totalSuccesses: 11}
         ]
       },
       {
@@ -144,7 +144,7 @@
 
   function looksRepeated(demo) {
     const text = `${demo.id} ${demo.group} ${demo.label} ${demo.note}`.toLowerCase();
-    return text.includes('repeated') || text.includes('continuous') || text.includes('11 successful') || text.includes('11-success');
+    return text.includes('repeated') || text.includes('uncut') || text.includes('continuous') || text.includes('11 successful') || text.includes('11-success');
   }
 
   function normalizeFeature(raw, task, extractedDemo = null) {
@@ -166,9 +166,9 @@
       layout: source.layout === 'video-left' ? 'video-left' : 'video-right',
       trials: Array.isArray(source.trials) ? source.trials : [],
       counterLabel: clean(source.counterLabel) || 'successes',
-      kicker: clean(source.kicker) || 'Repeated pick-and-place',
-      title: clean(source.title || source.label || extractedDemo?.label) || 'Repeated pick-and-place',
-      note: clean(source.subtitle || source.note || source.description || extractedDemo?.note) || 'Repeated real-world deployment with manual resets between attempts.',
+      kicker: clean(source.kicker) || 'Uncut pick-and-place',
+      title: clean(source.title || source.label || extractedDemo?.label) || 'Uncut pick-and-place',
+      note: clean(source.subtitle || source.note || source.description || extractedDemo?.note) || 'Uncut real-world deployment with manual resets between attempts.',
       video: side,
       totalSuccesses: total,
       successMarkers: markers,
@@ -286,15 +286,17 @@
     const article = el('article', 'deployment-task');
     article.id = `deployment-${task.id}`;
     article.dataset.taskId = task.id;
+    article.classList.toggle('deployment-instructions', Boolean(task.instructionPair));
     const header = el('header', 'deployment-task-header');
     const copy = el('div');
-    copy.append(el('p', 'deployment-task-kicker', `Task ${index + 1} · Real robot comparison`));
+    copy.append(el('p', 'deployment-task-kicker', task.instructionPair ? 'Language-conditioned object selection' : `Task ${index + 1} · Real robot comparison`));
     copy.append(el('h3', '', task.title));
     if (task.prompt) copy.append(el('p', 'deployment-task-prompt', task.prompt));
     const count = el('div', 'deployment-task-count');
     count.append(el('strong', '', String(task.demos.length)));
     count.append(el('span', '', 'cases'));
-    header.append(copy, count);
+    header.append(copy);
+    if (!task.instructionPair) header.append(count);
 
     const stage = el('div', 'deployment-stage');
     const main = el('div', 'deployment-main');
@@ -309,6 +311,15 @@
 
     const compare = el('div', 'deployment-compare');
     compare.append(mediaCard('real'), mediaCard('sim'));
+    if (task.instructionPair) {
+      compare.querySelectorAll('.deployment-side').forEach((side, sideIndex) => {
+        const prompt = task.instructions[sideIndex];
+        side.querySelector('.deployment-side-label').textContent = `Instruction ${sideIndex + 1}`;
+        side.querySelector('.deployment-side-label').className = 'deployment-side-label';
+        side.querySelector('.deployment-seek').setAttribute('aria-label', `${prompt} Video timeline`);
+        side.prepend(el('p', 'deployment-instruction-prompt', prompt));
+      });
+    }
 
     const controls = el('div', 'deployment-controls');
     const buttons = el('div', 'deployment-buttons');
@@ -332,7 +343,8 @@
       demos.forEach((demo, demoIndex) => groupBox.append(candidateButton(task, demo, demoIndex)));
       playlist.append(groupBox);
     });
-    stage.append(main, playlist);
+    stage.append(main);
+    if (!task.instructionPair) stage.append(playlist);
     article.append(header, stage);
     return article;
   }
@@ -363,7 +375,7 @@
     video.playsInline = true;
     video.preload = 'none';
     video.setAttribute('aria-label', feature.title);
-    const placeholder = el('div', 'deployment-placeholder', 'Repeated rollout footage coming soon');
+    const placeholder = el('div', 'deployment-placeholder', 'Uncut rollout footage coming soon');
     const loading = el('div', 'deployment-loading');
     loading.hidden = true;
     loading.setAttribute('role', 'status');
@@ -583,7 +595,7 @@
     video.dataset.src = data.src || '';
     video.dataset.duration = data.duration ? String(data.duration) : '';
     video.dataset.outcome = data.outcome || '';
-    video.setAttribute('aria-label', `${task.title}, ${demo.label}: ${kind === 'sim' ? 'sim-data trained' : 'real-data trained'} real robot deployment`);
+    video.setAttribute('aria-label', task.instructionPair ? task.instructions[kind === 'real' ? 0 : 1] : `${task.title}, ${demo.label}: ${kind === 'sim' ? 'sim-data trained' : 'real-data trained'} real robot deployment`);
     side.classList.toggle('has-media', sideHasMedia(data));
     placeholder.textContent = sideHasMedia(data) ? '' : (data.pending || 'Footage coming soon');
     outcome.textContent = data.outcome || '';
@@ -640,7 +652,9 @@
     const realSide = article.querySelector('.deployment-side[data-kind="real"]');
     realSide.hidden = single;
     article.querySelector('.deployment-compare').classList.toggle('is-single', single);
-    article.querySelector('.deployment-note').textContent = single
+    article.querySelector('.deployment-note').textContent = task.instructionPair
+      ? 'Same model · Different instructions · Original speed'
+      : single
       ? 'Real robot deployment trained with Zero-HLM simulation data.'
       : 'Both videos are real robot deployments; labels indicate training data.';
     applySide(realSide, single ? normalizeSide() : demo.real, task, demo, 'real');
@@ -854,7 +868,7 @@
     video.dataset.src = feature.video.src || '';
     video.dataset.duration = feature.video.duration ? String(feature.video.duration) : '';
     article.classList.toggle('has-media', sideHasMedia(feature.video));
-    placeholder.textContent = sideHasMedia(feature.video) ? '' : (feature.video.pending || 'Repeated rollout footage coming soon');
+    placeholder.textContent = sideHasMedia(feature.video) ? '' : (feature.video.pending || 'Uncut rollout footage coming soon');
     if (error) error.hidden = true;
     video.load();
     updateSeek(video, article);
@@ -986,7 +1000,7 @@
     const visible = visibleWidth * visibleHeight / Math.max(1, rect.width * rect.height) >= 0.32;
     if (visible === taskState.inView && !force) return;
     taskState.inView = visible;
-    if (visible) setActiveTaskNav(article.dataset.taskId);
+    if (visible) setActiveTaskNav(taskState.task.navTaskId || article.dataset.taskId);
     if (visible && !taskState.userPaused && !reduceMotion.matches) requestBatchPlay(article, false, true);
     if (!visible) pauseTask(article);
   }
@@ -1009,6 +1023,24 @@
     if (!visible) pauseFeature(article);
   }
 
+  function instructionComparisonTask() {
+    return {
+      id: 'task-a-instructions',
+      navTaskId: 'task-a',
+      instructionPair: true,
+      title: 'Same model, different instructions',
+      prompt: 'Both objects are present. The instruction selects the target object and destination; the other object remains untouched.',
+      instructions: ['Place the banana in the woven basket.', 'Place the bitter melon on the white plate.'],
+      demos: [normalizeDemo({
+        id: 'task-a-instruction-pair',
+        group: 'Language-conditioned object selection',
+        label: 'Same model, different instructions',
+        real: {src: './media/deployment/task1-instruction-banana.mp4', poster: './media/deployment/task1-instruction-banana.jpg', duration: 33},
+        sim: {src: './media/deployment/task1-instruction-bitter-melon.mp4', poster: './media/deployment/task1-instruction-bitter-melon.jpg', duration: 28}
+      })]
+    };
+  }
+
   function render(manifest) {
     const normalized = normalizeManifest(manifest);
     host.replaceChildren();
@@ -1029,6 +1061,13 @@
         setupFeatured(featureArticle, feature);
         featureArticles.push(featureArticle);
       });
+      if (task.id === 'task-a') {
+        const comparison = instructionComparisonTask();
+        const comparisonArticle = renderTask(comparison, index);
+        host.append(comparisonArticle);
+        setupTask(comparisonArticle, comparison);
+        articles.push(comparisonArticle);
+      }
     });
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => updateViewport(entry.target));

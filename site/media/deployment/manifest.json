@@ -12,7 +12,7 @@
       "beforeTask": "task-b",
       "title": "11 consecutive successful pick-and-place trials",
       "subtitle": "One continuous recording, accelerated only. All manual resets are retained.",
-      "group": "Repeated",
+      "group": "Uncut",
       "taskId": "task-a",
       "training": "Sim-data trained",
       "deployment": "Physical G1 real-world deployment",
@@ -242,15 +242,16 @@
         "counter": "Count markers with time <= video.currentTime; recompute on seek and reset at 0.",
         "speedLabel": "Use speedSegments for the current time; keep final count at 11 on the final frame."
       },
-      "continuity": "Single recording with no internal cuts; execution 2× and reset 3×."
+      "continuity": "Single recording with no internal cuts; execution 2× and reset 3×.",
+      "kicker": "Uncut pick-and-place"
     },
     "walkPickPlace": {
       "id": "task-a-walk-pick-place-continuous",
       "taskId": "task-a",
       "afterTask": "task-a",
       "layout": "video-left",
-      "kicker": "Repeated mobile manipulation",
-      "title": "18 repeated walk–pick–and–place trials",
+      "kicker": "Uncut mobile manipulation",
+      "title": "18 walk–pick–and–place trials · Uncut",
       "subtitle": "18 walk–pick–and–place attempts, with 11 successful placements. One continuous recording; all manual resets and the motor-cooling break are retained.",
       "counterLabel": "successes",
       "completedRollouts": 18,
