@@ -291,7 +291,14 @@
     const copy = el('div');
     copy.append(el('p', 'deployment-task-kicker', task.instructionPair ? 'Task 1 · Object–Goal Pair' : `Task ${index + 1} · Real robot comparison`));
     copy.append(el('h3', '', task.title));
-    if (task.prompt) copy.append(el('p', 'deployment-task-prompt', task.prompt));
+    if (task.prompt) {
+      const description = el('p', 'deployment-task-prompt');
+      if (task.instructionPair) {
+        const [before, after] = task.prompt.split('the same visuomotor policy');
+        description.append(before, el('strong', '', 'the same visuomotor policy'), after);
+      } else description.textContent = task.prompt;
+      copy.append(description);
+    }
     const count = el('div', 'deployment-task-count');
     count.append(el('strong', '', String(task.demos.length)));
     count.append(el('span', '', 'cases'));
@@ -1030,7 +1037,7 @@
       navTaskId: 'task-a',
       instructionPair: true,
       title: 'Object–Goal Generalization',
-      prompt: 'From banana-to-basket to bitter-melon-to-plate, the same policy follows the instructed object–goal pair. With both objects present, these real-world rollouts illustrate selecting the requested object and placement target while leaving the distractor untouched.',
+      prompt: 'We evaluate instruction-conditioned object–goal selection with both target and distractor objects present. Under different language instructions, the same visuomotor policy executes banana-to-basket and bitter-melon-to-plate placements without manipulating the non-target object, demonstrating language grounding in the presence of distractors.',
       instructions: ['Place the banana in the woven basket.', 'Place the bitter melon on the white plate.'],
       demos: [normalizeDemo({
         id: 'task-a-instruction-pair',
