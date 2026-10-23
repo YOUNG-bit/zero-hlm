@@ -602,7 +602,9 @@
       ['waiting', 'stalled', 'seeking'].forEach(event => video.addEventListener(event, () => {
         if (!panel.hidden && intersectsViewport(video) && !video.paused) setVideoLoading(shell, true);
       }));
-      ['canplay', 'playing', 'seeked', 'pause', 'ended'].forEach(event => video.addEventListener(event, () => setVideoLoading(shell, false)));
+      ['canplay', 'playing', 'seeked', 'pause', 'ended'].forEach(event => video.addEventListener(event, () => {
+        setVideoLoading(shell, !document.hidden && !panel.hidden && intersectsViewport(video) && !video.paused && !video.ended && (video.seeking || video.readyState < 3));
+      }));
       video.addEventListener('play', () => {
         if (document.hidden || panel.hidden || !intersectsViewport(video)) video.pause();
         else if (video.readyState < 3) setVideoLoading(shell, true);

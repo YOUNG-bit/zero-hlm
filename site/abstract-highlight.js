@@ -31,6 +31,8 @@
   video.addEventListener('loadeddata', () => { error.hidden = true; });
   new IntersectionObserver(update, {threshold: [0, 0.55, 1]}).observe(video);
   document.addEventListener('visibilitychange', update);
+  addEventListener('scroll', update, {passive: true});
+  addEventListener('resize', update);
   reduceMotion.addEventListener('change', () => {
     if (reduceMotion.matches) stopVideo(video);
   });

@@ -949,6 +949,7 @@
     featureState.userPaused = false;
     featureState.pendingPlay = true;
     featureState.token += 1;
+    const featureToken = featureState.token;
     const token = incrementToken(video);
     const error = article.querySelector('.deployment-error');
     if (error) error.hidden = true;
@@ -958,7 +959,7 @@
     if (info) info.expectedSrc = video.dataset.src || '';
     waitForReady(video, token).then(() => {
       const latest = featureStates.get(article.dataset.featureId);
-      if (!latest || latest.token !== featureState.token || latest.userPaused || document.hidden || video.ended) return;
+      if (!latest || latest.token !== featureToken || latest.userPaused || document.hidden || video.ended) return;
       latest.pendingPlay = false;
       video.play().then(() => setLoading(video, false)).catch(() => setLoading(video, false));
       setFeatureToggle(article);
@@ -1005,7 +1006,7 @@
     const vw = innerWidth || document.documentElement.clientWidth;
     const visibleWidth = Math.max(0, Math.min(rect.right, vw) - Math.max(rect.left, 0));
     const visibleHeight = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
-    const visible = visibleWidth * visibleHeight / Math.max(1, rect.width * rect.height) >= 0.32;
+    const visible = visibleWidth * visibleHeight / Math.max(1, Math.min(rect.width, vw) * Math.min(rect.height, vh)) >= 0.32;
     if (visible === taskState.inView && !force) return;
     taskState.inView = visible;
     if (visible) setActiveTaskNav(taskState.task.navTaskId || article.dataset.taskId);
@@ -1091,12 +1092,12 @@
       if (target) setActiveTaskNav(target);
     }));
     addEventListener('scroll', () => {
-      articles.forEach(updateViewport);
-      featureArticles.forEach(updateFeaturedViewport);
+      articles.forEach(article => updateViewport(article));
+      featureArticles.forEach(article => updateFeaturedViewport(article));
     }, {passive: true});
     addEventListener('resize', () => {
-      articles.forEach(updateViewport);
-      featureArticles.forEach(updateFeaturedViewport);
+      articles.forEach(article => updateViewport(article));
+      featureArticles.forEach(article => updateFeaturedViewport(article));
     });
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {

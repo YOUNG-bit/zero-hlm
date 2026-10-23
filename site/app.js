@@ -62,7 +62,10 @@ function stopVideo(video) {
 }
 function requestVideoPlay(video) {
   const token = showVideoLoading(video);
-  return video.play().then(() => { clearVideoLoading(video, token); return true; });
+  return video.play().then(() => { clearVideoLoading(video, token); return true; }).catch(error => {
+    if (playbackState.get(video)?.token === token) stopVideo(video);
+    throw error;
+  });
 }
 function isAutoplayVisible(el, minRatio = 0.35) {
   if (!el) return false;
@@ -71,7 +74,7 @@ function isAutoplayVisible(el, minRatio = 0.35) {
   const viewportWidth = innerWidth || document.documentElement.clientWidth;
   const visibleWidth = Math.max(0, Math.min(rect.right, viewportWidth) - Math.max(rect.left, 0));
   const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
-  const area = Math.max(1, rect.width * rect.height);
+  const area = Math.max(1, Math.min(rect.width, viewportWidth) * Math.min(rect.height, viewportHeight));
   return visibleWidth * visibleHeight / area >= minRatio;
 }
 function ignoreAbort(err) { return err?.name === 'AbortError'; }
@@ -460,10 +463,7 @@ function updateDataCardVisibility(card, visible, force = false) {
   const hadCard = dataVisibleCards.has(card);
   if (visible) dataVisibleCards.add(card);
   else dataVisibleCards.delete(card);
-  if (!force && visible === hadCard) {
-    if (visible && video.paused && !dataUserPaused) playVisibleData();
-    return;
-  }
+  if (!force && visible === hadCard) return;
   if (visible) playVisibleData();
   else stopVideo(video);
   setDataToggleFromVideos();
@@ -523,7 +523,7 @@ dataVideos().forEach(video => {
 });
 if (dataLayout) {
   const dataObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => updateDataCardVisibility(entry.target, entry.isIntersecting && entry.intersectionRatio >= 0.45));
+    entries.forEach(entry => updateDataCardVisibility(entry.target, isPagePlayable() && isAutoplayVisible(entry.target, 0.45)));
   }, {threshold:[0,0.08,0.25,0.45,0.65,1]});
   dataCards.forEach(card => dataObserver.observe(card));
   addEventListener('scroll', () => updateDataViewportState(), {passive: true});
