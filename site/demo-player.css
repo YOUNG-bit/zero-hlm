@@ -14,3 +14,5 @@
 @media(prefers-reduced-motion:reduce){.project-demo-play{transition:none}.project-demo-loading>span:first-child{animation:none}}
 
 .project-demo-embed,.project-demo-poster{position:absolute;inset:0}.project-demo.is-waiting{border-color:#d1b77b90}.project-demo-error{pointer-events:auto}.project-demo-error a{color:#dfc38d;text-decoration:underline}.project-demo-loading{inset:0}
+
+.project-demo-external{position:absolute;z-index:4;left:16px;top:16px;padding:8px 12px;border:1px solid #d6bc8550;border-radius:20px;background:#11191be8;color:#dfc38d;font-size:12px;text-decoration:none}.project-demo-error{z-index:5}.project-demo-external:hover{background:#382e20}
