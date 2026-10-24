@@ -250,7 +250,7 @@ function advanceMethodStep() {
   setMethodToggle(true);
   if (methodSeeking || methodUserPaused || !methodInView || !isPagePlayable() || reduceMotion.matches) return;
   const activeIndex = methodTabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true');
-  const nextTab = activeIndex >= 0 ? methodTabs[activeIndex + 1] : null;
+  const nextTab = activeIndex >= 0 ? methodTabs[(activeIndex + 1) % methodTabs.length] : null;
   if (nextTab) loadMethodStep(nextTab);
 }
 function playVisibleMethod() {

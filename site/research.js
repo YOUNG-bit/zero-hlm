@@ -585,6 +585,7 @@
       const shell = el('div', 'benchmark-video-shell benchmark-composite-shell');
       const video = document.createElement('video');
       video.className = 'benchmark-video benchmark-composite-video';
+      video.loop = true;
       video.controls = true;
       video.muted = true;
       video.playsInline = true;

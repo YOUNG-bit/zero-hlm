@@ -723,6 +723,28 @@
     requestBatchPlay(article, false, false);
   }
 
+  // Keep results visible briefly, then restart the entire ready pair together.
+  // Playback tokens invalidate a queued restart on pause, seek, or demo changes.
+  function scheduleReplay(video) {
+    const feature = video.closest('.deployment-featured');
+    const article = feature || video.closest('.deployment-task');
+    if (!article) return;
+    const playback = feature ? featureStates.get(article.dataset.featureId) : taskStates.get(article.dataset.taskId);
+    const videos = feature ? [video] : activeVideos(article);
+    if (!playback?.inView || playback.userPaused || document.hidden || !videos.length || !videos.every(item => item.ended)) return;
+    const tokens = videos.map(item => state.get(item)?.token);
+    const playbackToken = feature ? playback.token : playback.batchToken;
+    clearTimeout(playback.replayTimer);
+    playback.replayTimer = setTimeout(() => {
+      playback.replayTimer = null;
+      if (document.hidden || !playback.inView || playback.userPaused ||
+          (feature ? playback.token : playback.batchToken) !== playbackToken ||
+          !videos.every((item, index) => item.ended && state.get(item)?.token === tokens[index])) return;
+      if (feature) playFeature(article, true);
+      else requestBatchPlay(article, true);
+    }, 1500);
+  }
+
   function setupVideo(video) {
     state.set(video, {seeking: false, resumeAfterSeek: false, seekCommitted: null, playRequested: false, token: 0, expectedSrc: '', waitingForPartner: false, suspendedForPartner: false, manualStop: false});
     const container = video.closest('.deployment-side,.deployment-featured');
@@ -770,6 +792,7 @@
       setTaskToggle(video.closest('.deployment-task'));
       setFeatureToggle(video.closest('.deployment-featured'));
       updateFeatureStats(video, true);
+      scheduleReplay(video);
       const outcomeText = video.dataset.outcome || '';
       if (outcomeText && container.classList.contains('deployment-side')) {
         container.querySelector('.deployment-outcome')?.classList.add('is-shown');

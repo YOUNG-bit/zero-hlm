@@ -89,7 +89,13 @@
             iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
             if (inView && !document.hidden) event.target.playVideo();
           },
-          onStateChange(event) { setLoading(event.data === YT.PlayerState.BUFFERING); },
+          onStateChange(event) {
+            setLoading(event.data === YT.PlayerState.BUFFERING);
+            if (event.data === YT.PlayerState.ENDED && inView && !document.hidden) {
+              event.target.seekTo(0, true);
+              event.target.playVideo();
+            }
+          },
           onAutoplayBlocked() { setLoading(false); start.hidden = false; },
           onError: showError
         }
