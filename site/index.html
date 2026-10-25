@@ -6,9 +6,8 @@
     <script>
       history.scrollRestoration = 'manual';
       if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
-      window.addEventListener('pageshow', () => {
-        window.scrollTo({top: 0, left: 0, behavior: 'instant'});
-      });
+      // Initialize before content is visible; pageshow can arrive after the reader scrolls.
+      window.scrollTo({top: 0, left: 0, behavior: 'instant'});
     </script>
     <title>Zero-HLM: Generalizable Humanoid Loco-Manipulation without Real Robot Data</title>
     <meta
