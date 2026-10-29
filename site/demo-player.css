@@ -1,5 +1,5 @@
 .project-demo{position:relative;aspect-ratio:16/9;width:100%;margin-top:16px;overflow:hidden;border:1px solid #b6a78040;border-radius:16px;background:#080a0b;box-shadow:0 20px 65px #0005;scroll-margin-top:88px}
-.project-demo-embed,.project-demo-embed iframe,.project-demo-poster{display:block;width:100%;height:100%;object-fit:contain;background:#080a0b;border:0}
+.project-demo-video,.project-demo-poster{display:block;width:100%;height:100%;object-fit:contain;background:#080a0b;border:0}
 .project-demo [hidden]{display:none!important}
 .project-demo-start{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:flex-end;flex-direction:row;gap:10px;padding:24px;border:0;color:#f5eee1;background:transparent;font-size:14px;letter-spacing:.05em;text-shadow:0 2px 12px #000;transition:background .2s}
 .project-demo-play{display:grid;place-items:center;width:44px;height:44px;padding-left:4px;border-radius:50%;border:1px solid #d6bc85b0;background:#11191bd9;color:#dfc38d;font-size:17px;box-shadow:0 0 0 5px #c7aa6520;backdrop-filter:blur(12px);transition:transform .2s,box-shadow .2s}
@@ -13,6 +13,4 @@
 @media(max-width:600px){.project-demo{border-radius:10px}.project-demo-play{width:32px;height:32px;font-size:13px}.project-demo-start{font-size:11px;gap:7px;padding:14px}.project-demo-start>span:last-child{height:32px;padding:0 11px}}
 @media(prefers-reduced-motion:reduce){.project-demo-play{transition:none}.project-demo-loading>span:first-child{animation:none}}
 
-.project-demo-embed,.project-demo-poster{position:absolute;inset:0}.project-demo.is-waiting{border-color:#d1b77b90}.project-demo-error{pointer-events:auto}.project-demo-error a{color:#dfc38d;text-decoration:underline}.project-demo-loading{inset:0}
-
-.project-demo-external{position:absolute;z-index:4;left:16px;top:16px;padding:8px 12px;border:1px solid #d6bc8550;border-radius:20px;background:#11191be8;color:#dfc38d;font-size:12px;text-decoration:none}.project-demo-error{z-index:5}.project-demo-external:hover{background:#382e20}
+.project-demo-video,.project-demo-poster{position:absolute;inset:0}.project-demo.is-waiting{border-color:#d1b77b90}.project-demo-error{pointer-events:auto}.project-demo-error a{color:#dfc38d;text-decoration:underline}.project-demo-loading{inset:0 0 48px}

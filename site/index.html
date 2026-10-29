@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="./styles.css?v=viewport-loading-20261023" />
     <link rel="stylesheet" href="./research.css?v=benchmark-grid-v5" />
     <link rel="stylesheet" href="./gap-study.css?v=loading-v6" />
-      <link rel="stylesheet" href="./demo-player.css?v=youtube-viewport-20261023" />
+      <link rel="stylesheet" href="./demo-player.css?v=native-compact-20261029" />
   </head>
   <body id="top">
     <header class="site-nav">
@@ -222,18 +222,17 @@
           <div class="resource-actions" aria-label="Research resources"><a class="resource-link primary" href="./paper/Zero-HLM-20261026.pdf" download="Zero-HLM.pdf" type="application/pdf"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h4M10 12h5M10 16h5"/></svg>Paper</a><a class="resource-link" href="https://arxiv.org/pdf/2610.35075"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h14M5 12h14M5 18h14"/></svg>arXiv</a><button class="resource-link" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg><span>Code <small>(coming soon)</small></span></button><a class="resource-link youtube" href="https://www.youtube.com/watch?v=jkrRp13nhVU"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M21.58 7.19a2.97 2.97 0 0 0-2.09-2.1C17.65 4.6 12 4.6 12 4.6s-5.65 0-7.49.49a2.97 2.97 0 0 0-2.09 2.1A31 31 0 0 0 1.93 12c0 1.62.16 3.23.49 4.81a2.97 2.97 0 0 0 2.09 2.1c1.84.49 7.49.49 7.49.49s5.65 0 7.49-.49a2.97 2.97 0 0 0 2.09-2.1c.33-1.58.49-3.19.49-4.81s-.16-3.23-.49-4.81ZM10 15.2V8.8l5.54 3.2Z" fill-rule="evenodd"/></svg>YouTube</a><a class="resource-link" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></svg>Dataset</a><a class="resource-link" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 3 12 18h4L8 3zm16 0L4 21"/></svg>Twitter</a></div>
         </div>
 
-        <div id="highlight-stage" class="project-demo" data-youtube-id="jkrRp13nhVU" aria-label="Zero-HLM project demo">
-          <a class="project-demo-external" href="https://www.youtube.com/watch?v=jkrRp13nhVU">Watch on YouTube ↗</a>
-          <div class="project-demo-embed"></div>
+        <div id="highlight-stage" class="project-demo" aria-label="Zero-HLM project demo">
+          <video class="project-demo-video" data-src="./media/project-demo-compact-20261029.mp4?v=final" poster="./media/zero-hlm-demo-6a5c78bd0397.jpg" preload="none" muted playsinline loop controls aria-label="Zero-HLM project demo"></video>
           <img class="project-demo-poster" src="./media/zero-hlm-demo-6a5c78bd0397.jpg" width="1920" height="1080" alt="Zero-HLM: learn in simulation and deploy in the real world" />
-          <button class="project-demo-start" type="button" aria-label="Play the complete Zero-HLM demo">
+          <button class="project-demo-start" type="button" aria-label="Play the Zero-HLM demo">
             <span class="project-demo-play" aria-hidden="true">▶</span>
             <span>Watch demo</span>
           </button>
           <div class="project-demo-loading" role="status" aria-live="polite" hidden>
             <span aria-hidden="true"></span><span>Loading video…</span>
           </div>
-          <p class="project-demo-error" role="alert" hidden>YouTube could not connect. Please try again or <a class="project-demo-youtube-link" href="https://www.youtube.com/watch?v=jkrRp13nhVU">watch on YouTube</a>.</p>
+          <p class="project-demo-error" role="alert" hidden>The video could not load. Please try again or <a class="project-demo-youtube-link" href="https://www.youtube.com/watch?v=jkrRp13nhVU">watch on YouTube</a>.</p>
         </div>
       </section>
 
@@ -449,7 +448,7 @@
       </div>
     </footer>
 
-    <script src="./demo-player.js?v=youtube-viewport-20261023" defer></script>
+    <script src="./demo-player.js?v=native-compact-20261029" defer></script>
     <script src="./media-bootstrap.js?v=compact-20261029" defer></script>
   </body>
 </html>
