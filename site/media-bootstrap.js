@@ -18,7 +18,7 @@ document.querySelector('.nav-links a[href="#citation"]')?.addEventListener('clic
       ]);
     } catch (error) { console.warn('Media range compatibility unavailable:', error.message); }
   }
-  for (const src of ['./app.js?v=viewport-loading-20261023','./abstract-highlight.js?v=viewport-loading-20261023','./deployment.js?v=viewport-loading-20261023','./gap-study.js?v=loading-v6','./research.js?v=viewport-loading-20261023']) {
+  for (const src of ['./app.js?v=viewport-loading-20261023','./abstract-highlight.js?v=viewport-loading-20261023','./deployment.js?v=compact-20261029','./gap-study.js?v=loading-v6','./research.js?v=viewport-loading-20261023']) {
     await new Promise((resolve,reject) => {
       const script=document.createElement('script');script.src=src;script.onload=resolve;script.onerror=reject;document.body.append(script);
     });

@@ -471,6 +471,8 @@
   }
 
   function ensureVideo(video) {
+    // Requested playback must buffer before the synchronized readiness gate.
+    video.preload = 'auto';
     if (video.dataset.src && !video.getAttribute('src')) {
       video.src = video.dataset.src;
       video.load();

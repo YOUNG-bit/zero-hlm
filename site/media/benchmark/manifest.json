@@ -4,7 +4,7 @@
       "id": "task1",
       "title": "Task 1 \u00b7 Mobile Pick-and-Place",
       "prompt": "Walk to the table, pick up the banana, and place it in the basket.",
-      "src": "./media/benchmark/task1-grid.mp4?v=gold-red-v2",
+      "src": "./media/benchmark/task1-grid.mp4?v=compact-20261029",
       "poster": "./media/benchmark/task1-grid.jpg?v=gold-red-v2",
       "duration": 40.0
     },
@@ -12,7 +12,7 @@
       "id": "task2",
       "title": "Task 2 \u00b7 Low-Reach Hat Placement",
       "prompt": "Pick up the hat, carry it to the cabinet, and place it on top.",
-      "src": "./media/benchmark/task2-grid.mp4?v=gold-red-v2",
+      "src": "./media/benchmark/task2-grid.mp4?v=compact-20261029",
       "poster": "./media/benchmark/task2-grid.jpg?v=gold-red-v2",
       "duration": 40.0
     },
@@ -20,7 +20,7 @@
       "id": "task3",
       "title": "Task 3 \u00b7 Leg-Assisted Basket Transport",
       "prompt": "Carry the basket, close the cabinet with a foot, and place the basket on the stool.",
-      "src": "./media/benchmark/task3-grid.mp4?v=task3-final-v3",
+      "src": "./media/benchmark/task3-grid.mp4?v=compact-20261029",
       "poster": "./media/benchmark/task3-grid.jpg?v=task3-final-v3",
       "duration": 40.0
     }
