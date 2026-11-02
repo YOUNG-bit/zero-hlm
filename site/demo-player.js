@@ -76,8 +76,7 @@
   function updateVisibility() {
     const rect = shell.getBoundingClientRect();
     const visible = !document.hidden && (document.fullscreenElement === video ||
-      Math.max(0, Math.min(rect.bottom, innerHeight) - Math.max(rect.top, 0)) /
-      Math.max(1, Math.min(rect.height, innerHeight)) >= .35);
+      (rect.height > 0 && rect.bottom > 0 && rect.top < innerHeight));
     if (visible === inView) return;
     inView = visible;
     if (!visible) pause();
@@ -88,6 +87,10 @@
   addEventListener('scroll', updateVisibility, {passive:true});
   addEventListener('resize', updateVisibility);
   new IntersectionObserver(updateVisibility).observe(shell);
-  window.addEventListener('pagehide', pause);
+  window.addEventListener('pagehide', () => {
+    inView = false;
+    pause();
+  });
+  window.addEventListener('pageshow', updateVisibility);
   updateVisibility();
 })();
